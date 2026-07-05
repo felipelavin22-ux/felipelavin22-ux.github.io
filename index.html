@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portafolio personal de Felipe Lavin Piriz, Desarrollador Web Junior. Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con base en Ingeniería Electrónica." />
+    <title>Felipe Lavin Piriz — Desarrollador Web Junior</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+  <body>
+    <div id="app">
+      <!-- ===== Header / Nav ===== -->
+      <header class="site-header" id="siteHeader">
+        <div class="container nav-wrap">
+          <a href="#hero" class="brand">
+            <span class="brand-mark">FLP</span>
+            <span class="brand-name">Felipe Lavin Piriz</span>
+          </a>
+          <nav class="nav-links" id="navLinks">
+            <a href="#about" class="nav-link">Sobre mí</a>
+            <a href="#services" class="nav-link">Cómo puedo ayudarte</a>
+            <a href="#project" class="nav-link">Proyecto</a>
+            <a href="#skills" class="nav-link">Habilidades</a>
+            <a href="#education" class="nav-link">Formación</a>
+            <a href="#contact" class="nav-link nav-cta">Contacto</a>
+          </nav>
+          <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <!-- ===== Hero ===== -->
+        <section class="hero" id="hero">
+          <div class="container hero-grid">
+            <div class="hero-text reveal">
+              <p class="hero-eyebrow">Haedo, Buenos Aires, Argentina</p>
+              <h1 class="hero-title">
+                Desarrollador <span class="accent">Web Junior</span>
+              </h1>
+              <p class="hero-sub">
+                Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con formación previa en Ingeniería Electrónica. Construyo soluciones web limpias, analíticas y orientadas a resolver problemas concretos.
+                Estoy interesado en sumar experiencia ayudando a profesionales y pequeñas empresas a tener presencia digital.
+              </p>
+              <div class="hero-actions">
+                <a href="#project" class="btn btn-primary">Ver proyecto destacado</a>
+                <a href="#contact" class="btn btn-ghost">Contactarme</a>
+              </div>
+            </div>
+            <div class="hero-card reveal">
+              <div class="avatar">
+                <img
+                  src="/ChatGPT_Image_7_abr_2026,_12_01_28_p.m..png"
+                  alt="Foto de Felipe Lavin Piriz"
+                  class="avatar-photo"
+                />
+                <div class="avatar-ring"></div>
+              </div>
+              <ul class="hero-meta">
+                <li><span class="meta-label">Rol</span><span>Desarrollador Web Junior</span></li>
+                <li><span class="meta-label">Ubicación</span><span>Haedo, Buenos Aires</span></li>
+                <li><span class="meta-label">Formación</span><span>Tecnicatura en Desarrollo Web — UNLaM</span></li>
+                <li><span class="meta-label">Enfoque</span><span>Frontend · IA · Backend</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="scroll-cue" aria-hidden="true">
+            <span class="scroll-cue-line"></span>
+            <span class="scroll-cue-text">scroll</span>
+          </div>
+        </section>
+
+        <!-- ===== About ===== -->
+        <section class="section" id="about">
+          <div class="container">
+            <header class="section-head reveal">
+              <span class="section-index">01</span>
+              <h2 class="section-title">Sobre mí</h2>
+            </header>
+            <div class="about-grid">
+              <article class="about-card reveal">
+                <h3>Perfil</h3>
+                <p>
+                  Soy estudiante de la <strong>Tecnicatura en Desarrollo Web</strong> en la
+                  Universidad Nacional de La Matanza (UNLaM), con formación previa en
+                  <strong>Ingeniería Electrónica</strong> (22 materias promocionadas).
+                  Esta base me aporta una mirada analítica y estructurada, enfocada en la
+                  resolución de problemas complejos y en la integración estratégica de la
+                  Inteligencia Artificial.
+                </p>
+              </article>
+              <article class="about-card reveal">
+                <h3>Lo que me define</h3>
+                <p>
+                  Combino el rigor de la ingeniería con la creatividad del desarrollo web.
+                  Me interesa construir productos digitales claros, funcionales y bien
+                  estructurados, donde la experiencia del usuario y la calidad del código
+                  tengan el mismo peso.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Services ===== -->
+        <section class="section section-alt" id="services">
+          <div class="container">
+            <header class="section-head reveal">
+              <span class="section-index">02</span>
+              <h2 class="section-title">Cómo puedo ayudarte</h2>
+              <p class="section-lead">
+                Desarrollo soluciones web para negocios que necesitan ordenar procesos,
+                administrar información o integrar herramientas de IA en sus productos.
+              </p>
+            </header>
+            <div class="services-grid">
+              <article class="service-card reveal">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18M3 12h18M3 19h18" stroke-linecap="round"/></svg>
+                </div>
+                <h3>Sitios web institucionales</h3>
+                <p>Sitios profesionales para mostrar servicios, contacto y ubicación, con un diseño claro y responsive.</p>
+              </article>
+              <article class="service-card reveal">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9" /></svg>
+                </div>
+                <h3>Paneles administrativos</h3>
+                <p>Interfaces para cargar, editar, consultar y organizar datos de forma simple y ordenada.</p>
+              </article>
+              <article class="service-card reveal">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16v10H4z" /><path d="M4 7l8 6 8-6" /></svg>
+                </div>
+                <h3>Landing pages comerciales</h3>
+                <p>Páginas enfocadas en presentar un servicio, captar consultas y conectar con WhatsApp o formularios.</p>
+              </article>
+              <article class="service-card reveal">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v3M12 18v3M5 5l2 2M17 17l2 2M3 12h3M18 12h3M5 19l2-2M17 7l2-2" /><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <h3>Integraciones con IA</h3>
+                <p>Integración de modelos de IA en productos web reales, con foco en casos de uso concretos y no aislados.</p>
+              </article>
+              <article class="service-card reveal">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" /><path d="M9 12h6M9 8h6M9 16h4" /></svg>
+                </div>
+                <h3>Automatización de tareas</h3>
+                <p>Conexión entre formularios, emails, APIs y bases de datos para reducir tareas manuales y centralizar información.</p>
+              </article>
+              <article class="service-card reveal">
+                <div class="service-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7L9 18l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h3>Mejoras sobre sistemas existentes</h3>
+                <p>Corrección, mejora y mantenimiento de sitios o sistemas ya desarrollados, agregando funcionalidades o ajustando errores.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Featured Project ===== -->
+        <section class="section" id="project">
+          <div class="container">
+            <header class="section-head reveal">
+              <span class="section-index">03</span>
+              <h2 class="section-title">Proyecto destacado</h2>
+            </header>
+            <article class="project-card reveal">
+              <div class="project-preview" aria-hidden="true">
+                <div class="project-preview-grid">
+                  <span class="preview-bar bar-1"></span>
+                  <span class="preview-bar bar-2"></span>
+                  <span class="preview-bar bar-3"></span>
+                  <span class="preview-dot"></span>
+                </div>
+                <div class="project-tag-row">
+                  <span class="project-tag">JavaScript</span>
+                  <span class="project-tag">Simulación</span>
+                  <span class="project-tag">Carteras</span>
+                </div>
+              </div>
+              <div class="project-body">
+                <p class="project-eyebrow">Challenge Técnico · AranguriApps</p>
+                <h3 class="project-title">Portfolio de Inversiones</h3>
+                <p class="project-desc">
+                  Aplicación web interactiva para la simulación y gestión de carteras de
+                  inversión, desarrollada como un desafío técnico clave dentro de un
+                  proceso de selección. Permite armar, visualizar y analizar el
+                  comportamiento de una cartera en tiempo real.
+                </p>
+                <ul class="project-meta">
+                  <li><span>Rol</span>Desarrollo frontend · Challenge técnico</li>
+                  <li><span>Tipo</span>Aplicación web interactiva</li>
+                  <li><span>Estado</span>Desplegado en producción</li>
+                </ul>
+                <div class="project-actions">
+                  <a href="https://github.com/felipelavin22-ux/portfolio-inversiones-final" target="_blank" rel="noopener" class="btn btn-primary">
+                    Ver código
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                  <a href="https://portfolio-inversiones-challenge-baon7robj-felipe-portfolio.vercel.app/" target="_blank" rel="noopener" class="btn btn-ghost">
+                    Ver app en vivo
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ===== Skills ===== -->
+        <section class="section section-alt" id="skills">
+          <div class="container">
+            <header class="section-head reveal">
+              <span class="section-index">04</span>
+              <h2 class="section-title">Habilidades</h2>
+            </header>
+            <div class="skills-grid">
+              <article class="skill-card reveal" data-level="70">
+                <div class="skill-top">
+                  <h3>JavaScript</h3>
+                  <span class="skill-level">Intermedio</span>
+                </div>
+                <div class="skill-bar"><span style="--w:70%"></span></div>
+              </article>
+              <article class="skill-card reveal" data-level="85">
+                <div class="skill-top">
+                  <h3>HTML</h3>
+                  <span class="skill-level">Sólido</span>
+                </div>
+                <div class="skill-bar"><span style="--w:85%"></span></div>
+              </article>
+              <article class="skill-card reveal" data-level="80">
+                <div class="skill-top">
+                  <h3>Git</h3>
+                  <span class="skill-level">Sólido</span>
+                </div>
+                <div class="skill-bar"><span style="--w:80%"></span></div>
+              </article>
+              <article class="skill-card reveal" data-level="75">
+                <div class="skill-top">
+                  <h3>PLC</h3>
+                  <span class="skill-level">Intermedio</span>
+                </div>
+                <div class="skill-bar"><span style="--w:75%"></span></div>
+              </article>
+              <article class="skill-card reveal" data-level="70">
+                <div class="skill-top">
+                  <h3>Excel</h3>
+                  <span class="skill-level">Intermedio</span>
+                </div>
+                <div class="skill-bar"><span style="--w:70%"></span></div>
+              </article>
+              <article class="skill-card reveal" data-level="80">
+                <div class="skill-top">
+                  <h3>Inglés</h3>
+                  <span class="skill-level">Upper-Intermediate</span>
+                </div>
+                <div class="skill-bar"><span style="--w:80%"></span></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Education / Trajectory ===== -->
+        <section class="section" id="education">
+          <div class="container">
+            <header class="section-head reveal">
+              <span class="section-index">05</span>
+              <h2 class="section-title">Formación y trayectoria</h2>
+            </header>
+            <div class="timeline">
+              <article class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <span class="timeline-tag">En curso</span>
+                  <h3>Tecnicatura en Desarrollo Web</h3>
+                  <p class="timeline-place">Universidad Nacional de La Matanza (UNLaM)</p>
+                </div>
+              </article>
+              <article class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <span class="timeline-tag">En curso</span>
+                  <h3>Desarrollo Web con HTML</h3>
+                  <p class="timeline-place">EducaciónIT</p>
+                </div>
+              </article>
+              <article class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <span class="timeline-tag">En curso</span>
+                  <h3>Git y Control de Versiones</h3>
+                  <p class="timeline-place">EducaciónIT</p>
+                </div>
+              </article>
+              <article class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <h3>E-Commerce</h3>
+                  <p class="timeline-place">Coderhouse</p>
+                </div>
+              </article>
+              <article class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <span class="timeline-tag">Experiencia</span>
+                  <h3>Soporte Técnico y Atención al Usuario</h3>
+                  <p class="timeline-place">Tecnolab S.A. · Gestión administrativa</p>
+                </div>
+              </article>
+              <article class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <span class="timeline-tag">Base</span>
+                  <h3>Ingeniería Electrónica</h3>
+                  <p class="timeline-place">22 materias promocionadas</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Contact ===== -->
+        <section class="section section-alt" id="contact">
+          <div class="container">
+            <header class="section-head reveal">
+              <span class="section-index">06</span>
+              <h2 class="section-title">Contacto</h2>
+              <p class="section-lead">
+                Disponible para oportunidades como Desarrollador Web Junior y para
+                proyectos web freelance. Escribime y lo conversamos.
+              </p>
+            </header>
+            <div class="contact-grid">
+              <a href="mailto:felipe.lavin2208@gmail.com" class="contact-card reveal">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6" /></svg>
+                </div>
+                <span class="contact-label">Correo</span>
+                <span class="contact-value">felipe.lavin2208@gmail.com</span>
+              </a>
+              <a href="https://www.linkedin.com/in/felipe-lavin-piriz" target="_blank" rel="noopener" class="contact-card reveal">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 17v-7" stroke-linecap="round"/></svg>
+                </div>
+                <span class="contact-label">LinkedIn</span>
+                <span class="contact-value">/felipe-lavin-piriz</span>
+              </a>
+              <a href="https://wa.me/5491167214648" target="_blank" rel="noopener" class="contact-card reveal">
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l1.5-4.5A8 8 0 1112 20a8 8 0 01-4.5-1.5L3 21z" stroke-linejoin="round"/><path d="M9 9c0 3 3 6 6 6" stroke-linecap="round"/></svg>
+                </div>
+                <span class="contact-label">WhatsApp</span>
+                <span class="contact-value">+54 9 11 6721-4648</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ===== Footer ===== -->
+      <footer class="site-footer">
+        <div class="container footer-wrap">
+          <p class="footer-brand">Felipe Lavin Piriz · Desarrollador Web Junior</p>
+          <p class="footer-meta">Haedo, Buenos Aires, Argentina · © <span id="year"></span></p>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
