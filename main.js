@@ -1,4 +1,4 @@
-import './style.css'
+
 
 const header = document.getElementById('siteHeader')
 const navToggle = document.getElementById('navToggle')
