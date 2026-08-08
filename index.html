@@ -60,15 +60,16 @@
       pointer-events:auto
     }
     .site-header.scrolled .nav-wrap{width:min(820px,calc(100% - 40px));height:54px;border-radius:999px;padding-left:12px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:650;white-space:nowrap;cursor:pointer}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:650;white-space:nowrap;cursor:pointer}
     .brand-mark{
-      width:36px;height:36px;border-radius:50%;overflow:hidden;flex:none;
-      border:1px solid rgba(59,130,246,.35);box-shadow:0 0 0 3px var(--soft);transition:.35s var(--ease)
+      width:50px;height:50px;border-radius:50%;overflow:hidden;flex:none;position:relative;
+      border:1.5px solid rgba(59,130,246,.5);box-shadow:0 0 0 4px var(--soft),0 8px 22px rgba(59,130,246,.28);
+      transition:.35s var(--ease)
     }
     .brand-mark img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
-    .brand:hover .brand-mark{transform:rotate(-6deg) scale(1.08);box-shadow:0 0 0 4px var(--soft)}
+    .brand:hover .brand-mark{transform:rotate(-6deg) scale(1.06);box-shadow:0 0 0 5px var(--soft),0 10px 26px rgba(59,130,246,.4)}
     .brand:hover .brand-mark img{transform:scale(1.12)}
-    .site-header.scrolled .brand-mark{width:32px;height:32px}
+    .site-header.scrolled .brand-mark{width:42px;height:42px}
     .brand-name{font-size:.92rem}
     .nav-links{display:flex;align-items:center;gap:2px}
     .nav-link{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:.82rem;transition:.25s}
@@ -209,6 +210,9 @@
 
     /* ===== Skills ===== */
     .skill-card{padding:20px;transition:.35s var(--ease)}
+    .skill-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+    .skill-name{display:flex;align-items:center;gap:11px;min-width:0}
+    .skill-icon{width:32px;height:32px;border-radius:9px;object-fit:cover;flex:none;box-shadow:0 6px 16px rgba(0,0,0,.18)}
     /* Featured-skill glow: rotating gradient ring on hover (inspired by uiverse.io/saritha_7555/calm-panda-22, adapted) */
     .skill-card.skill-glow{position:relative;z-index:0;overflow:hidden}
     .skill-card.skill-glow:before{
@@ -221,7 +225,6 @@
     .skill-card.skill-glow:hover{transform:translateY(-5px);border-color:transparent}
     .skill-card.skill-glow:hover h3{color:var(--accent2)}
     .skill-card.skill-glow h3{transition:color .3s}
-    .skill-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:14px}
     .skill-top h3{font-size:.95rem;font-weight:550}
     .skill-level{font-family:"JetBrains Mono",monospace;font-size:.67rem;color:var(--dim)}
     .skill-bar{height:5px;background:rgba(127,127,127,.14);border-radius:99px;overflow:hidden}
@@ -427,12 +430,12 @@
       <div class="container">
         <header class="section-head reveal"><span class="section-index mono">04</span><h2 class="section-title">Habilidades</h2></header>
         <div class="skills-grid">
-          <article class="skill-card skill-glow reveal" data-level="70"><div class="skill-top"><h3>JavaScript</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:70%"></span></div></article>
-          <article class="skill-card reveal" data-level="85"><div class="skill-top"><h3>HTML</h3><span class="skill-level">Sólido</span></div><div class="skill-bar"><span style="--w:85%"></span></div></article>
-          <article class="skill-card skill-glow reveal" data-level="80"><div class="skill-top"><h3>Git</h3><span class="skill-level">Completado</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
-          <article class="skill-card reveal" data-level="75"><div class="skill-top"><h3>PLC</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:75%"></span></div></article>
-          <article class="skill-card skill-glow reveal" data-level="40"><div class="skill-top"><h3>CSS</h3><span class="skill-level">En curso</span></div><div class="skill-bar"><span style="--w:40%"></span></div></article>
-          <article class="skill-card reveal" data-level="80"><div class="skill-top"><h3>Inglés</h3><span class="skill-level">Upper-Intermediate</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
+          <article class="skill-card skill-glow reveal" data-level="70"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-js.png" alt="" loading="lazy"><h3>JavaScript</h3></div><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:70%"></span></div></article>
+          <article class="skill-card reveal" data-level="85"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-html.png" alt="" loading="lazy"><h3>HTML</h3></div><span class="skill-level">Sólido</span></div><div class="skill-bar"><span style="--w:85%"></span></div></article>
+          <article class="skill-card skill-glow reveal" data-level="80"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-git.png" alt="" loading="lazy"><h3>Git</h3></div><span class="skill-level">Completado</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
+          <article class="skill-card reveal" data-level="75"><div class="skill-top"><div class="skill-name"><h3>PLC</h3></div><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:75%"></span></div></article>
+          <article class="skill-card skill-glow reveal" data-level="40"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-css.png" alt="" loading="lazy"><h3>CSS</h3></div><span class="skill-level">En curso</span></div><div class="skill-bar"><span style="--w:40%"></span></div></article>
+          <article class="skill-card reveal" data-level="80"><div class="skill-top"><div class="skill-name"><h3>Inglés</h3></div><span class="skill-level">Upper-Intermediate</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
         </div>
       </div>
     </section>
