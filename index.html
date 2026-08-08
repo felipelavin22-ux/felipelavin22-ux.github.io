@@ -1,375 +1,542 @@
 <!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/code.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portafolio personal de Felipe Lavin Piriz, Desarrollador Web Junior. Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con base en Ingeniería Electrónica." />
-    <title>Felipe Lavin Piriz — Desarrollador Web Junior</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Portafolio personal de Felipe Lavin Piriz, Desarrollador Web Junior.">
+  <title>Felipe Lavin Piriz — Desarrollador Web Junior</title>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/code.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!--
+    Portafolio integrado en un único index.html.
+    Las animaciones están implementadas en CSS/JS vanilla, inspiradas en:
+    Aceternity UI: Minimal Portfolio, Resizable Navbar, Typewriter Effect, Timeline.
+    Uiverse: Tooltip de MrBishtji y Switch de r7chardgh.
+    Se mantienen los créditos/enlaces de referencia de los componentes utilizados como inspiración.
+  -->
+
+  <style>
+    :root{
+      --bg:#09090b;--bg2:#101014;--card:#15151a;--card2:#1b1b21;
+      --text:#f5f7fb;--muted:#a5a7b0;--dim:#71747e;--border:rgba(255,255,255,.09);
+      --accent:#3b82f6;--accent2:#60a5fa;--soft:rgba(59,130,246,.13);
+      --green:#22c55e;--shadow:0 25px 70px rgba(0,0,0,.35);
+      --radius:20px;--ease:cubic-bezier(.22,1,.36,1);
+    }
+    html[data-theme="light"]{
+      --bg:#f7f9fc;--bg2:#eef2f7;--card:#fff;--card2:#f4f7fb;
+      --text:#111827;--muted:#5f6673;--dim:#7b8492;--border:rgba(15,23,42,.10);
+      --accent:#2563eb;--accent2:#3b82f6;--soft:rgba(37,99,235,.10);
+      --shadow:0 25px 70px rgba(15,23,42,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{
+      margin:0;min-width:320px;min-height:100vh;background:var(--bg);color:var(--text);
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;
+      overflow-x:hidden;transition:background .45s ease,color .45s ease
+    }
+    body:before{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+      background:radial-gradient(60% 45% at 85% 0%,rgba(59,130,246,.12),transparent 65%),
+                 radial-gradient(45% 35% at 0% 100%,rgba(59,130,246,.06),transparent 65%)
+    }
+    a{color:inherit;text-decoration:none} button{font:inherit}
+    .container{width:min(1120px,calc(100% - 40px));margin:auto}
+    h1,h2,h3,p{margin:0} h1,h2,h3{line-height:1.15;letter-spacing:-.025em}
+    .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+    /* ===== Resizable navbar: wide at top -> compact pill while scrolling ===== */
+    .site-header{position:fixed;top:16px;left:0;right:0;z-index:100;pointer-events:none}
+    .nav-wrap{
+      width:min(1120px,calc(100% - 40px));height:66px;margin:auto;padding:0 12px 0 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      background:color-mix(in srgb,var(--card) 82%,transparent);border:1px solid var(--border);
+      border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.12);backdrop-filter:blur(18px);
+      transition:width .5s var(--ease),height .5s var(--ease),border-radius .5s var(--ease),padding .5s var(--ease)
+    }
+    .site-header.scrolled .nav-wrap{width:min(820px,calc(100% - 40px));height:54px;border-radius:999px;padding-left:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:650;white-space:nowrap}
+    .brand-mark{
+      width:36px;height:36px;display:grid;place-items:center;border-radius:11px;color:#fff;font-size:.76rem;
+      background:linear-gradient(135deg,var(--accent),#1d4ed8);box-shadow:0 0 25px rgba(59,130,246,.28)
+    }
+    .site-header.scrolled .brand-mark{width:32px;height:32px}
+    .brand-name{font-size:.92rem}
+    .nav-links{display:flex;align-items:center;gap:2px}
+    .nav-link{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:.82rem;transition:.25s}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:var(--soft)}
+    .nav-cta{color:var(--text);border:1px solid rgba(59,130,246,.28)}
+    .nav-toggle{display:none;width:40px;height:40px;border:1px solid var(--border);background:transparent;border-radius:10px;color:var(--text)}
+    .nav-toggle span{display:block;width:18px;height:2px;margin:4px auto;background:currentColor;transition:.3s}
+    .nav-toggle[aria-expanded=true] span:first-child{transform:translateY(6px) rotate(45deg)}
+    .nav-toggle[aria-expanded=true] span:nth-child(2){opacity:0}
+    .nav-toggle[aria-expanded=true] span:last-child{transform:translateY(-6px) rotate(-45deg)}
+
+    /* ===== Theme switch: OFF = dark/night, ON = light/day ===== */
+    .theme-switch{position:fixed;right:22px;bottom:22px;z-index:90}
+    .theme-switch input{display:none}
+    .switch{
+      --w:66px;position:relative;width:var(--w);height:34px;display:block;border-radius:999px;
+      background:#1f2937;border:1px solid rgba(255,255,255,.15);cursor:pointer;transition:.35s;
+      box-shadow:0 8px 24px rgba(0,0,0,.22)
+    }
+    .switch:before{
+      content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;
+      background:#f8fafc;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:.4s var(--ease)
+    }
+    .switch:after{content:"☾";position:absolute;right:9px;top:4px;color:#cbd5e1;font-size:16px}
+    #theme-toggle:checked + .switch{background:#dbeafe;border-color:#93c5fd}
+    #theme-toggle:checked + .switch:before{transform:translateX(32px);background:#facc15}
+    #theme-toggle:checked + .switch:after{content:"☀";left:9px;right:auto;color:#2563eb}
+
+    /* ===== Hero / minimal portfolio feel ===== */
+    .hero{min-height:100vh;display:grid;place-items:center;padding:130px 0 80px;position:relative}
+    .hero-grid{display:grid;grid-template-columns:1.45fr .75fr;gap:70px;align-items:center}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:18px;color:var(--dim);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(34,197,94,.12)}
+    .hero-title{font-size:clamp(3rem,7vw,6.2rem);font-weight:700;max-width:780px}
+    .typewriter{display:inline-block;color:var(--accent2);min-width:8ch}
+    .cursor{display:inline-block;width:2px;height:.86em;margin-left:5px;background:currentColor;vertical-align:-.06em;animation:blink .8s steps(1) infinite}
+    @keyframes blink{50%{opacity:0}}
+    .hero-sub{max-width:650px;margin-top:25px;color:var(--muted);font-size:1.05rem}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .btn{
+      display:inline-flex;align-items:center;gap:9px;padding:11px 17px;border-radius:12px;border:1px solid var(--border);
+      transition:.3s var(--ease);font-size:.88rem
+    }
+    .btn:hover{transform:translateY(-3px);border-color:rgba(59,130,246,.4)}
+    .btn-primary{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 12px 30px rgba(37,99,235,.25)}
+    .btn-ghost{background:var(--card)}
+    .hero-card{padding:22px;border:1px solid var(--border);background:var(--card);border-radius:24px;box-shadow:var(--shadow)}
+    .avatar{width:150px;height:150px;margin:0 auto 22px;position:relative;display:grid;place-items:center}
+    .avatar:before{content:"";position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(var(--accent),transparent 35%,var(--accent2),transparent 75%,var(--accent));animation:spin 7s linear infinite}
+    .avatar:after{content:"";position:absolute;inset:1px;border-radius:50%;background:var(--card)}
+    .avatar-photo{position:relative;z-index:2;width:142px;height:142px;object-fit:cover;object-position:center top;border-radius:50%;border:2px solid var(--card)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .hero-meta{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+    .hero-meta li{display:flex;justify-content:space-between;gap:14px;padding:9px 11px;border:1px solid var(--border);border-radius:10px;background:var(--card2);font-size:.78rem}
+    .meta-label{color:var(--dim);text-transform:uppercase;font-size:.67rem;letter-spacing:.08em}
+
+    /* ===== Sections / minimal cards ===== */
+    .section{padding:110px 0}
+    .section-alt{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .section-head{margin-bottom:45px;max-width:720px}
+    .section-index{color:var(--accent2);font-size:.75rem;letter-spacing:.12em}
+    .section-title{font-size:clamp(2rem,4vw,3rem);margin-top:8px}
+    .section-lead{margin-top:14px;color:var(--muted);max-width:650px}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal.in-view{opacity:1;transform:none}
+    .about-grid,.services-grid,.skills-grid,.contact-grid{display:grid;gap:16px}
+    .about-grid{grid-template-columns:repeat(2,1fr)}
+    .services-grid{grid-template-columns:repeat(3,1fr)}
+    .skills-grid{grid-template-columns:repeat(3,1fr)}
+    .contact-grid{grid-template-columns:repeat(3,1fr)}
+    .card,.service-card,.skill-card,.project-card,.timeline-card{
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 12px 35px rgba(0,0,0,.06)
+    }
+    .card{padding:28px}
+    .card h3,.service-card h3{margin-bottom:10px;font-size:1.05rem}
+    .card p,.service-card p{color:var(--muted);font-size:.92rem;line-height:1.75}
+    .service-card{padding:25px;min-height:190px;transition:.35s var(--ease)}
+    .service-card:hover,.skill-card:hover,.timeline-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,.35)}
+    .service-icon,.contact-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:var(--soft);color:var(--accent2);margin-bottom:20px}
+    .service-icon svg,.contact-icon svg{width:21px;height:21px}
+
+    /* ===== Featured project ===== */
+    .project-card{display:grid;grid-template-columns:.9fr 1.1fr;overflow:hidden}
+    .project-preview{min-height:360px;padding:24px;background:linear-gradient(145deg,var(--soft),transparent 65%),var(--card2);border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between}
+    .preview-window{height:100%;min-height:250px;border:1px solid var(--border);border-radius:15px;padding:14px;background:rgba(0,0,0,.08);position:relative;overflow:hidden}
+    .preview-window:before{content:"";position:absolute;left:14px;right:14px;top:14px;height:25px;border-radius:8px;background:linear-gradient(90deg,var(--soft),transparent)}
+    .preview-chart{position:absolute;left:14px;right:14px;bottom:18px;height:115px;display:flex;align-items:end;gap:8px}
+    .preview-chart i{flex:1;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,var(--accent2),transparent);opacity:.8}
+    .preview-chart i:nth-child(1){height:35%}.preview-chart i:nth-child(2){height:55%}.preview-chart i:nth-child(3){height:45%}.preview-chart i:nth-child(4){height:78%}.preview-chart i:nth-child(5){height:65%}.preview-chart i:nth-child(6){height:95%}
+    .project-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
+    .tag{font-family:"JetBrains Mono",monospace;font-size:.68rem;padding:5px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted)}
+    .project-body{padding:35px}
+    .project-eyebrow{font-family:"JetBrains Mono",monospace;color:var(--accent2);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+    .project-title{font-size:2rem;margin:10px 0 15px}
+    .project-desc{color:var(--muted);line-height:1.75}
+    .project-meta{list-style:none;padding:0;margin:25px 0;display:grid;gap:9px}
+    .project-meta li{display:flex;gap:15px;padding-bottom:9px;border-bottom:1px dashed var(--border);font-size:.84rem}
+    .project-meta span{width:65px;color:var(--dim);font-size:.68rem;text-transform:uppercase}
+
+    /* ===== Skills ===== */
+    .skill-card{padding:20px;transition:.35s var(--ease)}
+    .skill-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:14px}
+    .skill-top h3{font-size:.95rem;font-weight:550}
+    .skill-level{font-family:"JetBrains Mono",monospace;font-size:.67rem;color:var(--dim)}
+    .skill-bar{height:5px;background:rgba(127,127,127,.14);border-radius:99px;overflow:hidden}
+    .skill-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width 1.1s var(--ease)}
+    .skill-card.in-view .skill-bar span{width:var(--w)}
+
+    /* ===== Timeline / Aceternity-inspired scroll progress ===== */
+    .timeline{position:relative;padding-left:45px}
+    .timeline-line{position:absolute;left:9px;top:8px;width:2px;height:calc(100% - 16px);background:var(--border);border-radius:99px;overflow:hidden}
+    .timeline-progress{position:absolute;inset:0 0 auto;width:100%;height:0;background:linear-gradient(180deg,var(--accent2),var(--accent));box-shadow:0 0 14px rgba(59,130,246,.35)}
+    .timeline-item{position:relative;margin-bottom:18px}
+    .timeline-item:last-child{margin-bottom:0}
+    .timeline-dot{position:absolute;left:-43px;top:27px;width:18px;height:18px;border-radius:50%;background:var(--card);border:2px solid var(--accent);box-shadow:0 0 0 5px var(--bg)}
+    .timeline-card{padding:23px;transition:.35s var(--ease)}
+    .timeline-tag{display:inline-block;margin-bottom:8px;padding:4px 8px;border-radius:999px;background:var(--soft);color:var(--accent2);font:10px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em}
+    .timeline-card h3{font-size:1.05rem}
+    .timeline-place{margin-top:5px;color:var(--muted);font-size:.86rem}
+    .certificate-tab{
+      display:inline-flex;align-items:center;gap:6px;margin-top:13px;padding:7px 10px;border:1px solid rgba(59,130,246,.32);
+      border-radius:9px;background:var(--soft);color:var(--accent2);font-size:.73rem;cursor:pointer;transition:.25s
+    }
+    .certificate-tab:hover{transform:translateY(-2px);background:rgba(59,130,246,.18)}
+
+    /* ===== Contact: tooltip-style animated links ===== */
+    .contact-wrap{display:grid;grid-template-columns:1fr auto;gap:45px;align-items:center}
+    .contact-copy{max-width:600px}
+    .contact-links{display:flex;align-items:center;gap:12px}
+    .contact-link{
+      position:relative;width:58px;height:58px;display:grid;place-items:center;border:1px solid var(--border);
+      border-radius:16px;background:var(--card);color:var(--text);transition:.35s var(--ease)
+    }
+    .contact-link:hover{transform:translateY(-6px) scale(1.04);border-color:rgba(59,130,246,.45);background:var(--soft)}
+    .contact-link svg{width:23px;height:23px}
+    .contact-link .tooltip{
+      position:absolute;left:50%;bottom:calc(100% + 11px);transform:translate(-50%,8px) scale(.9);
+      padding:7px 10px;border-radius:8px;background:#171717;color:#fff;font-size:.7rem;white-space:nowrap;
+      opacity:0;pointer-events:none;transition:.25s var(--ease);box-shadow:0 10px 25px rgba(0,0,0,.25)
+    }
+    .contact-link .tooltip:after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#171717}
+    .contact-link:hover .tooltip{opacity:1;transform:translate(-50%,0) scale(1)}
+
+    /* ===== Certificate modal ===== */
+    .modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:25px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:.3s}
+    .modal.open{opacity:1;visibility:visible}
+    .modal-panel{position:relative;max-width:min(1050px,96vw);max-height:92vh;padding:10px;border:1px solid var(--border);border-radius:18px;background:var(--card);transform:scale(.96);transition:.35s var(--ease)}
+    .modal.open .modal-panel{transform:scale(1)}
+    .modal-panel img{display:block;max-width:100%;max-height:84vh;object-fit:contain;border-radius:10px}
+    .modal-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:20px;z-index:2}
+
+    .site-footer{padding:30px 0;border-top:1px solid var(--border);background:var(--bg2)}
+    .footer-wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--dim);font-size:.75rem}
+
+    @media (max-width:900px){
+      .hero-grid,.project-card,.contact-wrap{grid-template-columns:1fr}
+      .hero{padding-top:140px}
+      .hero-card{max-width:500px}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .contact-links{justify-content:flex-start}
+    }
+    @media (max-width:720px){
+      .container{width:min(100% - 28px,1120px)}
+      .site-header{top:8px}
+      .nav-wrap{width:calc(100% - 20px)!important;height:58px!important;border-radius:16px!important;padding:0 9px 0 12px!important}
+      .brand-name{display:none}
+      .nav-links{
+        display:none;position:absolute;top:65px;left:0;right:0;padding:10px;flex-direction:column;
+        background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)
+      }
+      .nav-links.open{display:flex}
+      .nav-link{width:100%;padding:11px}
+      .nav-toggle{display:block}
+      .services-grid,.skills-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+      .hero-title{font-size:clamp(2.7rem,13vw,4.3rem)}
+      .project-preview{min-height:300px;border-right:0;border-bottom:1px solid var(--border)}
+      .project-body{padding:25px}
+      .contact-wrap{gap:28px}
+      .theme-switch{right:14px;bottom:14px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+      .reveal{opacity:1;transform:none}
+    }
+  </style>
 </head>
-  <body>
-    <div id="app">
-      <!-- ===== Header / Nav ===== -->
-      <header class="site-header" id="siteHeader">
-        <div class="container nav-wrap">
-          <a href="#hero" class="brand">
-            <span class="brand-mark">FLP</span>
-            <span class="brand-name">Felipe Lavin Piriz</span>
-          </a>
-          <nav class="nav-links" id="navLinks">
-            <a href="#about" class="nav-link">Sobre mí</a>
-            <a href="#services" class="nav-link">Cómo puedo ayudarte</a>
-            <a href="#project" class="nav-link">Proyecto</a>
-            <a href="#skills" class="nav-link">Habilidades</a>
-            <a href="#education" class="nav-link">Formación</a>
-            <a href="#contact" class="nav-link nav-cta">Contacto</a>
-          </nav>
-          <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </header>
 
-      <main>
-        <!-- ===== Hero ===== -->
-        <section class="hero" id="hero">
-          <div class="container hero-grid">
-            <div class="hero-text reveal">
-              <p class="hero-eyebrow">Haedo, Buenos Aires, Argentina</p>
-              <h1 class="hero-title">
-                Desarrollador <span class="accent">Web Junior</span>
-              </h1>
-              <p class="hero-sub">
-                Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con formación previa en Ingeniería Electrónica. Construyo soluciones web limpias, analíticas y orientadas a resolver problemas concretos.
-                Estoy interesado en sumar experiencia ayudando a profesionales y pequeñas empresas a tener presencia digital.
-              </p>
-              <div class="hero-actions">
-                <a href="#project" class="btn btn-primary">Ver proyecto destacado</a>
-                <a href="#contact" class="btn btn-ghost">Contactarme</a>
-              </div>
-            </div>
-            <div class="hero-card reveal">
-              <div class="avatar">
-                <img src="perfil.png" alt="Foto de Felipe Lavin Piriz" class="avatar-photo" />
-                <div class="avatar-ring"></div>
-              </div>
-              <ul class="hero-meta">
-                <li><span class="meta-label">Rol</span><span>Desarrollador Web Junior</span></li>
-                <li><span class="meta-label">Ubicación</span><span>Haedo, Buenos Aires</span></li>
-                <li><span class="meta-label">Formación</span><span>Tecnicatura en Desarrollo Web — UNLaM</span></li>
-                <li><span class="meta-label">Enfoque</span><span>Frontend · IA · Backend</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="scroll-cue" aria-hidden="true">
-            <span class="scroll-cue-line"></span>
-            <span class="scroll-cue-text">scroll</span>
-          </div>
-        </section>
-
-        <!-- ===== About ===== -->
-        <section class="section" id="about">
-          <div class="container">
-            <header class="section-head reveal">
-              <span class="section-index">01</span>
-              <h2 class="section-title">Sobre mí</h2>
-            </header>
-            <div class="about-grid">
-              <article class="about-card reveal">
-                <h3>Perfil</h3>
-                <p>
-                  Soy estudiante de la <strong>Tecnicatura en Desarrollo Web</strong> en la
-                  Universidad Nacional de La Matanza (UNLaM), con formación previa en
-                  <strong>Ingeniería Electrónica</strong> (22 materias promocionadas).
-                  Esta base me aporta una mirada analítica y estructurada, enfocada en la
-                  resolución de problemas complejos y en la integración estratégica de la
-                  Inteligencia Artificial.
-                </p>
-              </article>
-              <article class="about-card reveal">
-                <h3>Lo que me define</h3>
-                <p>
-                  Combino el rigor de la ingeniería con la creatividad del desarrollo web.
-                  Me interesa construir productos digitales claros, funcionales y bien
-                  estructurados, donde la experiencia del usuario y la calidad del código
-                  tengan el mismo peso.
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== Services ===== -->
-        <section class="section section-alt" id="services">
-          <div class="container">
-            <header class="section-head reveal">
-              <span class="section-index">02</span>
-              <h2 class="section-title">Cómo puedo ayudarte</h2>
-              <p class="section-lead">
-                Desarrollo soluciones web para negocios que necesitan ordenar procesos,
-                administrar información o integrar herramientas de IA en sus productos.
-              </p>
-            </header>
-            <div class="services-grid">
-              <article class="service-card reveal">
-                <div class="service-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18M3 12h18M3 19h18" stroke-linecap="round"/></svg>
-                </div>
-                <h3>Sitios web institucionales</h3>
-                <p>Sitios profesionales para mostrar servicios, contacto y ubicación, con un diseño claro y responsive.</p>
-              </article>
-              <article class="service-card reveal">
-                <div class="service-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9" /></svg>
-                </div>
-                <h3>Paneles administrativos</h3>
-                <p>Interfaces para cargar, editar, consultar y organizar datos de forma simple y ordenada.</p>
-              </article>
-              <article class="service-card reveal">
-                <div class="service-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16v10H4z" /><path d="M4 7l8 6 8-6" /></svg>
-                </div>
-                <h3>Landing pages comerciales</h3>
-                <p>Páginas enfocadas en presentar un servicio, captar consultas y conectar con WhatsApp o formularios.</p>
-              </article>
-              <article class="service-card reveal">
-                <div class="service-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v3M12 18v3M5 5l2 2M17 17l2 2M3 12h3M18 12h3M5 19l2-2M17 7l2-2" /><circle cx="12" cy="12" r="3"/></svg>
-                </div>
-                <h3>Integraciones con IA</h3>
-                <p>Integración de modelos de IA en productos web reales, con foco en casos de uso concretos y no aislados.</p>
-              </article>
-              <article class="service-card reveal">
-                <div class="service-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3" /><path d="M9 12h6M9 8h6M9 16h4" /></svg>
-                </div>
-                <h3>Automatización de tareas</h3>
-                <p>Conexión entre formularios, emails, APIs y bases de datos para reducir tareas manuales y centralizar información.</p>
-              </article>
-              <article class="service-card reveal">
-                <div class="service-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7L9 18l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <h3>Mejoras sobre sistemas existentes</h3>
-                <p>Corrección, mejora y mantenimiento de sitios o sistemas ya desarrollados, agregando funcionalidades o ajustando errores.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== Featured Project ===== -->
-        <section class="section" id="project">
-          <div class="container">
-            <header class="section-head reveal">
-              <span class="section-index">03</span>
-              <h2 class="section-title">Proyecto destacado</h2>
-            </header>
-            <article class="project-card reveal">
-              <div class="project-preview" aria-hidden="true">
-                <div class="project-preview-grid">
-                  <span class="preview-bar bar-1"></span>
-                  <span class="preview-bar bar-2"></span>
-                  <span class="preview-bar bar-3"></span>
-                  <span class="preview-dot"></span>
-                </div>
-                <div class="project-tag-row">
-                  <span class="project-tag">JavaScript</span>
-                  <span class="project-tag">Simulación</span>
-                  <span class="project-tag">Carteras</span>
-                </div>
-              </div>
-              <div class="project-body">
-                <p class="project-eyebrow">Challenge Técnico · AranguriApps</p>
-                <h3 class="project-title">Portfolio de Inversiones</h3>
-                <p class="project-desc">
-                  Aplicación web interactiva para la simulación y gestión de carteras de
-                  inversión, desarrollada como un desafío técnico clave dentro de un
-                  proceso de selección. Permite armar, visualizar y analizar el
-                  comportamiento de una cartera en tiempo real.
-                </p>
-                <ul class="project-meta">
-                  <li><span>Rol</span>Desarrollo fullstack · Challenge técnico</li>
-                  <li><span>Tipo</span>Aplicación web interactiva</li>
-                  <li><span>Estado</span>Desplegado en producción</li>
-                </ul>
-                <div class="project-actions">
-                  <a href="https://github.com/felipelavin22-ux/portfolio-inversiones-final" target="_blank" rel="noopener" class="btn btn-primary">
-                    Ver código
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </a>
-                  <a href="https://portfolio-inversiones-challenge-baon7robj-felipe-portfolio.vercel.app/" target="_blank" rel="noopener" class="btn btn-ghost">
-                    Ver app en vivo
-                  </a>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- ===== Skills ===== -->
-        <section class="section section-alt" id="skills">
-          <div class="container">
-            <header class="section-head reveal">
-              <span class="section-index">04</span>
-              <h2 class="section-title">Habilidades</h2>
-            </header>
-            <div class="skills-grid">
-              <article class="skill-card reveal" data-level="70">
-                <div class="skill-top">
-                  <h3>JavaScript</h3>
-                  <span class="skill-level">Intermedio</span>
-                </div>
-                <div class="skill-bar"><span style="--w:70%"></span></div>
-              </article>
-              <article class="skill-card reveal" data-level="80">
-                <div class="skill-top">
-                  <h3>HTML</h3>
-                  <span class="skill-level">En curso</span>
-                </div>
-                <div class="skill-bar"><span style="--w:80%"></span></div>
-              </article>
-              <article class="skill-card reveal" data-level="75">
-                <div class="skill-top">
-                  <h3>CSS</h3>
-                  <span class="skill-level">En curso</span>
-                </div>
-                <div class="skill-bar"><span style="--w:75%"></span></div>
-              </article>
-              <article class="skill-card reveal" data-level="75">
-                <div class="skill-top">
-                  <h3>Git</h3>
-                  <span class="skill-level">En curso</span>
-                </div>
-                <div class="skill-bar"><span style="--w:75%"></span></div>
-              </article>
-              <article class="skill-card reveal" data-level="75">
-                <div class="skill-top">
-                  <h3>PLC</h3>
-                  <span class="skill-level">Intermedio</span>
-                </div>
-                <div class="skill-bar"><span style="--w:75%"></span></div>
-              </article>
-              <article class="skill-card reveal" data-level="80">
-                <div class="skill-top">
-                  <h3>Inglés</h3>
-                  <span class="skill-level">Upper-Intermediate</span>
-                </div>
-                <div class="skill-bar"><span style="--w:80%"></span></div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== Education / Trajectory ===== -->
-        <section class="section" id="education">
-          <div class="container">
-            <header class="section-head reveal">
-              <span class="section-index">05</span>
-              <h2 class="section-title">Formación y trayectoria</h2>
-            </header>
-            <div class="timeline">
-              <article class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <span class="timeline-tag">En curso</span>
-                  <h3>Tecnicatura en Desarrollo Web</h3>
-                  <p class="timeline-place">Universidad Nacional de La Matanza (UNLaM)</p>
-                </div>
-              </article>
-              <article class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <span class="timeline-tag">En curso</span>
-                  <h3>Desarrollo Web con HTML</h3>
-                  <p class="timeline-place">EducaciónIT</p>
-                </div>
-              </article>
-              <article class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <span class="timeline-tag">En curso</span>
-                  <h3>Git y Control de Versiones</h3>
-                  <p class="timeline-place">EducaciónIT</p>
-                </div>
-              </article>
-              <article class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <h3>E-Commerce</h3>
-                  <p class="timeline-place">Coderhouse</p>
-                </div>
-              </article>
-              <article class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <span class="timeline-tag">Experiencia</span>
-                  <h3>Soporte Técnico y Atención al Usuario</h3>
-                  <p class="timeline-place">Tecnolab S.A. · Gestión administrativa</p>
-                </div>
-              </article>
-              <article class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <span class="timeline-tag">Base</span>
-                  <h3>Ingeniería Electrónica</h3>
-                  <p class="timeline-place">22 materias promocionadas/aprobadas</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===== Contact ===== -->
-        <section class="section section-alt" id="contact">
-          <div class="container">
-            <header class="section-head reveal">
-              <span class="section-index">06</span>
-              <h2 class="section-title">Contacto</h2>
-              <p class="section-lead">
-                Disponible para oportunidades como Desarrollador Web Junior y para
-                proyectos web freelance. Escribime y lo conversamos.
-              </p>
-            </header>
-            <div class="contact-grid">
-              <a href="mailto:felipe.lavin2208@gmail.com" class="contact-card reveal">
-                <div class="contact-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6" /></svg>
-                </div>
-                <span class="contact-label">Correo</span>
-                <span class="contact-value">felipe.lavin2208@gmail.com</span>
-              </a>
-              <a href="https://www.linkedin.com/in/felipe-lavin-piriz" target="_blank" rel="noopener" class="contact-card reveal">
-                <div class="contact-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 17v-7" stroke-linecap="round"/></svg>
-                </div>
-                <span class="contact-label">LinkedIn</span>
-                <span class="contact-value">/felipe-lavin-piriz</span>
-              </a>
-              <a href="https://wa.me/5491167214648" target="_blank" rel="noopener" class="contact-card reveal">
-                <div class="contact-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l1.5-4.5A8 8 0 1112 20a8 8 0 01-4.5-1.5L3 21z" stroke-linejoin="round"/><path d="M9 9c0 3 3 6 6 6" stroke-linecap="round"/></svg>
-                </div>
-                <span class="contact-label">WhatsApp</span>
-                <span class="contact-value">+54 9 11 6721-4648</span>
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <!-- ===== Footer ===== -->
-      <footer class="site-footer">
-        <div class="container footer-wrap">
-          <p class="footer-brand">Felipe Lavin Piriz · Desarrollador Web Junior</p>
-          <p class="footer-meta">Haedo, Buenos Aires, Argentina · © <span id="year"></span></p>
-        </div>
-      </footer>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="nav-wrap">
+      <a class="brand" href="#hero"><span class="brand-mark">FLP</span><span class="brand-name">Felipe Lavin Piriz</span></a>
+      <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
+        <a class="nav-link active" href="#about">Sobre mí</a>
+        <a class="nav-link" href="#services">Cómo puedo ayudarte</a>
+        <a class="nav-link" href="#project">Proyecto</a>
+        <a class="nav-link" href="#skills">Habilidades</a>
+        <a class="nav-link" href="#education">Formación</a>
+        <a class="nav-link nav-cta" href="#contact">Contacto</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
+  </header>
 
-    <script type="module" src="main.js"></script>
-  </body>
+  <!-- OFF = noche / ON = día -->
+  <div class="theme-switch" title="Cambiar entre modo noche y modo día">
+    <input id="theme-toggle" type="checkbox" aria-label="Modo día">
+    <label class="switch" for="theme-toggle"></label>
+  </div>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">Haedo, Buenos Aires, Argentina</div>
+          <h1 class="hero-title">Desarrollador <span class="typewriter" id="typewriter"></span><span class="cursor"></span></h1>
+          <p class="hero-sub">Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con formación previa en Ingeniería Electrónica. Construyo soluciones web limpias, analíticas y orientadas a resolver problemas concretos. Estoy interesado en sumar experiencia ayudando a profesionales y pequeñas empresas a tener presencia digital.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#project">Ver proyecto destacado ↗</a>
+            <a class="btn btn-ghost" href="#contact">Contactarme</a>
+          </div>
+        </div>
+        <aside class="hero-card reveal">
+          <div class="avatar"><img class="avatar-photo" src="perfil.png" alt="Foto de Felipe Lavin Piriz"></div>
+          <ul class="hero-meta">
+            <li><span class="meta-label">Rol</span><span>Desarrollador Web Junior</span></li>
+            <li><span class="meta-label">Ubicación</span><span>Haedo, Buenos Aires</span></li>
+            <li><span class="meta-label">Formación</span><span>Tecnicatura en Desarrollo Web — UNLaM</span></li>
+            <li><span class="meta-label">Enfoque</span><span>Frontend · IA · Backend</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section-head reveal"><span class="section-index mono">01</span><h2 class="section-title">Sobre mí</h2></header>
+        <div class="about-grid">
+          <article class="card reveal"><h3>Perfil</h3><p>Soy estudiante de la <strong>Tecnicatura en Desarrollo Web</strong> en la Universidad Nacional de La Matanza (UNLaM), con formación previa en <strong>Ingeniería Electrónica</strong> (22 materias promocionadas). Esta base me aporta una mirada analítica y estructurada, enfocada en la resolución de problemas complejos y en la integración estratégica de la Inteligencia Artificial.</p></article>
+          <article class="card reveal"><h3>Lo que me define</h3><p>Combino el rigor de la ingeniería con la creatividad del desarrollo web. Me interesa construir productos digitales claros, funcionales y bien estructurados, donde la experiencia del usuario y la calidad del código tengan el mismo peso.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="services">
+      <div class="container">
+        <header class="section-head reveal"><span class="section-index mono">02</span><h2 class="section-title">Cómo puedo ayudarte</h2><p class="section-lead">Desarrollo soluciones web para negocios que necesitan ordenar procesos, administrar información o integrar herramientas de IA en sus productos.</p></header>
+        <div class="services-grid">
+          <article class="service-card reveal"><div class="service-icon">☰</div><h3>Sitios web institucionales</h3><p>Sitios profesionales para mostrar servicios, contacto y ubicación, con un diseño claro y responsive.</p></article>
+          <article class="service-card reveal"><div class="service-icon">▦</div><h3>Paneles administrativos</h3><p>Interfaces para cargar, editar, consultar y organizar datos de forma simple y ordenada.</p></article>
+          <article class="service-card reveal"><div class="service-icon">✉</div><h3>Landing pages comerciales</h3><p>Páginas enfocadas en presentar un servicio, captar consultas y conectar con WhatsApp o formularios.</p></article>
+          <article class="service-card reveal"><div class="service-icon">✦</div><h3>Integraciones con IA</h3><p>Integración de modelos de IA en productos web reales, con foco en casos de uso concretos y no aislados.</p></article>
+          <article class="service-card reveal"><div class="service-icon">⌘</div><h3>Automatización de tareas</h3><p>Conexión entre formularios, emails, APIs y bases de datos para reducir tareas manuales y centralizar información.</p></article>
+          <article class="service-card reveal"><div class="service-icon">✓</div><h3>Mejoras sobre sistemas existentes</h3><p>Corrección, mejora y mantenimiento de sitios o sistemas ya desarrollados, agregando funcionalidades o ajustando errores.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="project">
+      <div class="container">
+        <header class="section-head reveal"><span class="section-index mono">03</span><h2 class="section-title">Proyecto destacado</h2></header>
+        <article class="project-card reveal">
+          <div class="project-preview">
+            <div class="preview-window"><div class="preview-chart"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">Simulación</span><span class="tag">Carteras</span></div>
+          </div>
+          <div class="project-body">
+            <div class="project-eyebrow">Challenge Técnico · AranguriApps</div>
+            <h3 class="project-title">Portfolio de Inversiones</h3>
+            <p class="project-desc">Aplicación web interactiva para la simulación y gestión de carteras de inversión, desarrollada como un desafío técnico clave dentro de un proceso de selección. Permite armar, visualizar y analizar el comportamiento de una cartera en tiempo real.</p>
+            <ul class="project-meta">
+              <li><span>Rol</span>Desarrollo frontend · Challenge técnico</li>
+              <li><span>Tipo</span>Aplicación web interactiva</li>
+              <li><span>Estado</span>Desplegado en producción</li>
+            </ul>
+            <div class="hero-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener" href="https://github.com/felipelavin22-ux/portfolio-inversiones-final">Ver código ↗</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://portfolio-inversiones-challenge-baon7robj-felipe-portfolio.vercel.app/">Ver app en vivo ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <header class="section-head reveal"><span class="section-index mono">04</span><h2 class="section-title">Habilidades</h2></header>
+        <div class="skills-grid">
+          <article class="skill-card reveal" data-level="70"><div class="skill-top"><h3>JavaScript</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:70%"></span></div></article>
+          <article class="skill-card reveal" data-level="85"><div class="skill-top"><h3>HTML</h3><span class="skill-level">Sólido</span></div><div class="skill-bar"><span style="--w:85%"></span></div></article>
+          <article class="skill-card reveal" data-level="80"><div class="skill-top"><h3>Git</h3><span class="skill-level">Completado</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
+          <article class="skill-card reveal" data-level="75"><div class="skill-top"><h3>PLC</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:75%"></span></div></article>
+          <article class="skill-card reveal" data-level="70"><div class="skill-top"><h3>Excel</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:70%"></span></div></article>
+          <article class="skill-card reveal" data-level="80"><div class="skill-top"><h3>Inglés</h3><span class="skill-level">Upper-Intermediate</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <div class="container">
+        <header class="section-head reveal"><span class="section-index mono">05</span><h2 class="section-title">Formación y trayectoria</h2><p class="section-lead">La línea se completa progresivamente a medida que avanzás por la sección.</p></header>
+        <div class="timeline" id="timeline">
+          <div class="timeline-line"><div class="timeline-progress" id="timelineProgress"></div></div>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card"><span class="timeline-tag">En curso</span><h3>Tecnicatura en Desarrollo Web</h3><p class="timeline-place">Universidad Nacional de La Matanza (UNLaM)</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card"><span class="timeline-tag">En curso</span><h3>Desarrollo Web con HTML</h3><p class="timeline-place">EducaciónIT</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-tag">Completado</span><h3>Git y Control de Versiones</h3><p class="timeline-place">EducaciónIT</p>
+              <button class="certificate-tab" id="openCertificate" type="button">▣ Ver certificado</button>
+            </div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card"><h3>E-Commerce</h3><p class="timeline-place">Coderhouse</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card"><span class="timeline-tag">Experiencia</span><h3>Soporte Técnico y Atención al Usuario</h3><p class="timeline-place">Tecnolab S.A. · Gestión administrativa</p></div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card"><span class="timeline-tag">Base</span><h3>Ingeniería Electrónica</h3><p class="timeline-place">22 materias promocionadas</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <div class="contact-wrap">
+          <div class="contact-copy reveal">
+            <header class="section-head" style="margin-bottom:0"><span class="section-index mono">06</span><h2 class="section-title">Contacto</h2><p class="section-lead">Disponible para oportunidades como Desarrollador Web Junior y para proyectos web freelance. Escribime y lo conversamos.</p></header>
+          </div>
+          <div class="contact-links reveal" aria-label="Enlaces de contacto">
+            <a class="contact-link" href="mailto:felipe.lavin2208@gmail.com" aria-label="Gmail">
+              <span class="tooltip">Gmail</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            </a>
+            <a class="contact-link" href="https://www.linkedin.com/in/felipe-lavin-piriz" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <span class="tooltip">LinkedIn</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 17v-7"/></svg>
+            </a>
+            <a class="contact-link" href="https://wa.me/5491167214648" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <span class="tooltip">WhatsApp</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21l1.5-4.5A8 8 0 1112 20a8 8 0 01-4.5-1.5L3 21z"/><path d="M9 9c0 3 3 6 6 6" stroke-linecap="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <span>Felipe Lavin Piriz · Desarrollador Web Junior</span>
+      <span>Haedo, Buenos Aires, Argentina · © <span id="year"></span></span>
+    </div>
+  </footer>
+
+  <div class="modal" id="certificateModal" role="dialog" aria-modal="true" aria-label="Certificado de Git">
+    <div class="modal-panel">
+      <button class="modal-close" id="closeCertificate" type="button" aria-label="Cerrar certificado">×</button>
+      <img src="certificado-git.png" alt="Certificado de aprobación del curso Git: Desarrollo Colaborativo">
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const $ = (s, root=document) => root.querySelector(s);
+      const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+      const header = $('#siteHeader');
+      const navLinks = $('#navLinks');
+      const navToggle = $('#navToggle');
+      const themeToggle = $('#theme-toggle');
+      const timeline = $('#timeline');
+      const progress = $('#timelineProgress');
+
+      // Theme: OFF = dark/night, ON = light/day. Persisted locally.
+      const savedTheme = localStorage.getItem('felipe-theme');
+      if (savedTheme === 'light') {
+        document.documentElement.dataset.theme = 'light';
+        themeToggle.checked = true;
+      }
+      themeToggle.addEventListener('change', () => {
+        const light = themeToggle.checked;
+        document.documentElement.dataset.theme = light ? 'light' : 'dark';
+        localStorage.setItem('felipe-theme', light ? 'light' : 'dark');
+      });
+
+      // Resizable navbar + active section.
+      const onScroll = () => {
+        header.classList.toggle('scrolled', scrollY > 18);
+        if (!timeline) return;
+        const rect = timeline.getBoundingClientRect();
+        const viewport = innerHeight;
+        const start = viewport * .72;
+        const end = viewport * .25;
+        const total = rect.height;
+        const passed = Math.min(total, Math.max(0, start - rect.top));
+        const pct = Math.max(0, Math.min(100, ((passed - end) / Math.max(1, total - end)) * 100));
+        progress.style.height = pct + '%';
+      };
+      addEventListener('scroll', onScroll, {passive:true});
+      addEventListener('resize', onScroll);
+      onScroll();
+
+      const sections = $$('main section[id]');
+      const anchors = $$('.nav-link');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          anchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+        });
+      }, {rootMargin:'-45% 0px -45% 0px',threshold:0});
+      sections.forEach(s => observer.observe(s));
+
+      navToggle.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open);
+      });
+      anchors.forEach(a => a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      }));
+
+      // Reveal animations + skill bars.
+      const reveal = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        });
+      }, {rootMargin:'0px 0px -10% 0px',threshold:.12});
+      $$('.reveal').forEach(el => reveal.observe(el));
+
+      // Aceternity-inspired typewriter: visible, but not painfully slow.
+      const word = 'Web Junior';
+      const typewriter = $('#typewriter');
+      let i = 0;
+      const type = () => {
+        if (i < word.length) {
+          typewriter.textContent += word[i++];
+          setTimeout(type, 85);
+        }
+      };
+      setTimeout(type, 420);
+
+      // Certificate modal.
+      const modal = $('#certificateModal');
+      const openCert = $('#openCertificate');
+      const closeCert = $('#closeCertificate');
+      const closeModal = () => {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+      openCert.addEventListener('click', () => {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+      closeCert.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+      $('#year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
 </html>
