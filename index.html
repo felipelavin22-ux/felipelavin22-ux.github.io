@@ -49,7 +49,81 @@
     h1,h2,h3,p{margin:0} h1,h2,h3{line-height:1.15;letter-spacing:-.025em}
     .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 
-    /* ===== Resizable navbar: wide at top -> compact pill while scrolling ===== */
+
+    /* ===== Developer card — Uiverse-inspired hover treatment ===== */
+    .dev-mark{
+      width:36px;height:36px;border:1px solid var(--border);border-radius:10px;background:transparent!important;
+      color:var(--accent2);font:600 12px "JetBrains Mono",monospace;box-shadow:none;letter-spacing:-2px
+    }
+    .site-header.scrolled .dev-mark{width:32px;height:32px}
+    .developer-card{
+      position:relative;overflow:hidden;padding:24px;isolation:isolate;
+      background:linear-gradient(145deg,var(--card),color-mix(in srgb,var(--card) 80%,var(--accent) 20%));
+      transition:transform .5s var(--ease),border-color .4s ease,box-shadow .4s ease
+    }
+    .developer-card:before{
+      content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+      background:linear-gradient(130deg,transparent 20%,rgba(96,165,250,.55),transparent 70%);
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;opacity:.35;pointer-events:none
+    }
+    .developer-card:hover{transform:translateY(-8px) rotateX(2deg) rotateY(-2deg);border-color:rgba(96,165,250,.42);box-shadow:0 28px 65px rgba(0,0,0,.22)}
+    .dev-card-glow{position:absolute;width:150px;height:150px;right:-70px;top:-70px;border-radius:50%;background:rgba(59,130,246,.24);filter:blur(30px);z-index:-1;transition:.5s}
+    .developer-card:hover .dev-card-glow{transform:scale(1.35);opacity:.8}
+    .dev-card-top{display:flex;align-items:center;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+    .dev-avatar{width:72px;height:72px;flex:0 0 auto;border-radius:18px;padding:2px;background:linear-gradient(135deg,var(--accent2),transparent 65%);box-shadow:0 0 28px rgba(59,130,246,.15)}
+    .dev-avatar img{width:100%;height:100%;display:block;object-fit:cover;object-position:center top;border-radius:16px}
+    .dev-card-kicker{display:block;color:var(--accent2);font-size:9px;letter-spacing:.12em;margin-bottom:4px}
+    .dev-card-top h2{font-size:1.15rem;margin:0}
+    .dev-card-top p{color:var(--muted);font-size:.75rem;margin-top:3px}
+    .dev-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:17px}
+    .dev-info{padding:11px;border:1px solid var(--border);border-radius:11px;background:rgba(127,127,127,.035)}
+    .dev-info span{display:block;color:var(--dim);font:9px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+    .dev-info strong{display:block;font-size:.74rem;line-height:1.4;font-weight:550}
+    .dev-card-status{display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--muted);font-size:.69rem}
+    .dev-card-status i{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.1),0 0 12px rgba(34,197,94,.4)}
+
+    /* ===== Hero description: distinct word-by-word reveal ===== */
+    .hero-description{min-height:4.9em}
+    .desc-word{display:inline-block;opacity:0;transform:translateY(9px);filter:blur(5px);margin-right:.28em}
+    .hero-description.in-view .desc-word{animation:descriptionWord .55s var(--ease) forwards}
+    @keyframes descriptionWord{to{opacity:1;transform:none;filter:blur(0)}}
+
+    /* ===== Skill tooltip animation inspired by Uiverse calm-panda ===== */
+    .skill-animated{position:relative;overflow:visible}
+    .skill-tooltip{
+      position:absolute;left:50%;bottom:calc(100% + 10px);z-index:20;width:max-content;max-width:250px;
+      display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:9px;
+      background:#18181b;color:#fff;border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 35px rgba(0,0,0,.25);
+      opacity:0;visibility:hidden;transform:translate(-50%,10px) scale(.88);
+      transform-origin:bottom center;transition:opacity .28s var(--ease),transform .28s var(--ease),visibility .28s
+    }
+    .skill-tooltip:after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#18181b}
+    .skill-animated:hover .skill-tooltip,.skill-animated:focus-within .skill-tooltip{opacity:1;visibility:visible;transform:translate(-50%,0) scale(1)}
+    .skill-tooltip-icon{display:grid;place-items:center;width:25px;height:25px;border-radius:7px;background:rgba(96,165,250,.16);color:#93c5fd;font:600 10px "JetBrains Mono",monospace}
+    .skill-tooltip span:last-child{font-size:.68rem;line-height:1.35}
+
+    /* ===== Project image preview ===== */
+    .project-preview-button{
+      appearance:none;border:0;border-right:1px solid var(--border);cursor:pointer;text-align:left;color:inherit;
+      position:relative;overflow:hidden;min-height:360px;padding:24px;
+      background:linear-gradient(145deg,var(--soft),transparent 65%),var(--card2)
+    }
+    .project-preview-button img{display:block;width:100%;height:100%;min-height:270px;object-fit:cover;border:1px solid var(--border);border-radius:15px;transition:transform .55s var(--ease),filter .4s ease}
+    .project-preview-button:hover img{transform:scale(1.025);filter:brightness(.65)}
+    .preview-overlay{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-45%) scale(.92);opacity:0;
+      padding:10px 13px;border-radius:10px;background:rgba(9,9,11,.85);border:1px solid rgba(255,255,255,.15);
+      color:#fff;font-size:.76rem;white-space:nowrap;transition:.35s var(--ease);backdrop-filter:blur(8px)
+    }
+    .project-preview-button:hover .preview-overlay{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    .preview-overlay span{color:#93c5fd;font-size:16px;vertical-align:-1px;margin-right:5px}
+    .project-preview-button .project-tags{position:absolute;left:24px;right:24px;bottom:22px}
+    .project-modal-panel{max-width:min(1100px,96vw)}
+    .project-modal-panel img{max-height:75vh}
+    .preview-modal-actions{display:flex;justify-content:flex-end;padding:10px 3px 2px}
+
+    /* ===== Resizable navbar: wide at top -> compact pill while scrolling =====
     .site-header{position:fixed;top:16px;left:0;right:0;z-index:100;pointer-events:none}
     .nav-wrap{
       width:min(1120px,calc(100% - 40px));height:66px;margin:auto;padding:0 12px 0 18px;
@@ -240,7 +314,11 @@
       .nav-toggle{display:block}
       .services-grid,.skills-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
       .hero-title{font-size:clamp(2.7rem,13vw,4.3rem)}
-      .project-preview{min-height:300px;border-right:0;border-bottom:1px solid var(--border)}
+      .project-preview,.project-preview-button{min-height:300px;border-right:0;border-bottom:1px solid var(--border)}
+      .dev-card-grid{grid-template-columns:1fr}
+      .hero-description{min-height:7.2em}
+      .skill-tooltip{left:20px;transform:translateY(10px) scale(.88)}
+      .skill-animated:hover .skill-tooltip,.skill-animated:focus-within .skill-tooltip{transform:translateY(0) scale(1)}
       .project-body{padding:25px}
       .contact-wrap{gap:28px}
       .theme-switch{right:14px;bottom:14px}
@@ -255,7 +333,7 @@
 <body>
   <header class="site-header" id="siteHeader">
     <div class="nav-wrap">
-      <a class="brand" href="#hero"><span class="brand-mark">FLP</span><span class="brand-name">Felipe Lavin Piriz</span></a>
+      <a class="brand" href="#hero"><span class="brand-mark dev-mark" aria-hidden="true">&lt;/&gt;</span><span class="brand-name">Felipe Lavin Piriz</span></a>
       <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
         <a class="nav-link active" href="#about">Sobre mí</a>
         <a class="nav-link" href="#services">Cómo puedo ayudarte</a>
@@ -279,22 +357,31 @@
       <div class="container hero-grid">
         <div class="reveal">
           <div class="eyebrow">Haedo, Buenos Aires, Argentina</div>
-          <h1 class="hero-title">Desarrollador <span class="typewriter" id="typewriter"></span><span class="cursor"></span></h1>
-          <p class="hero-sub">Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con formación previa en Ingeniería Electrónica. Construyo soluciones web limpias, analíticas y orientadas a resolver problemas concretos. Estoy interesado en sumar experiencia ayudando a profesionales y pequeñas empresas a tener presencia digital.</p>
+          <h1 class="hero-title"><span class="typewriter" id="typewriter"></span><span class="cursor"></span></h1>
+          <p class="hero-sub hero-description" id="heroDescription" aria-label="Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con formación previa en Ingeniería Electrónica. Construyo soluciones web limpias, analíticas y orientadas a resolver problemas concretos. Estoy interesado en sumar experiencia ayudando a profesionales y pequeñas empresas a tener presencia digital."></p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#project">Ver proyecto destacado ↗</a>
             <a class="btn btn-ghost" href="#contact">Contactarme</a>
           </div>
         </div>
-        <aside class="hero-card reveal">
-          <div class="avatar"><img class="avatar-photo" src="perfil.png" alt="Foto de Felipe Lavin Piriz"></div>
-          <ul class="hero-meta">
-            <li><span class="meta-label">Rol</span><span>Desarrollador Web Junior</span></li>
-            <li><span class="meta-label">Ubicación</span><span>Haedo, Buenos Aires</span></li>
-            <li><span class="meta-label">Formación</span><span>Tecnicatura en Desarrollo Web — UNLaM</span></li>
-            <li><span class="meta-label">Enfoque</span><span>Frontend · IA · Backend</span></li>
-          </ul>
-        </aside>
+        <aside class="hero-card developer-card reveal">
+          <div class="dev-card-glow"></div>
+          <div class="dev-card-top">
+            <div class="dev-avatar"><img src="perfil.png" alt="Foto de Felipe Lavin Piriz"></div>
+            <div>
+              <span class="dev-card-kicker mono">DEVELOPER PROFILE</span>
+              <h2>Felipe Lavin Piriz</h2>
+              <p>Desarrollador Web Junior</p>
+            </div>
+          </div>
+          <div class="dev-card-grid">
+            <div class="dev-info"><span>Rol</span><strong>Desarrollador Web Junior</strong></div>
+            <div class="dev-info"><span>Ubicación</span><strong>Haedo, Buenos Aires</strong></div>
+            <div class="dev-info"><span>Formación</span><strong>Tecnicatura en Desarrollo Web — UNLaM</strong></div>
+            <div class="dev-info"><span>Enfoque</span><strong>Frontend · IA · Backend</strong></div>
+          </div>
+          <div class="dev-card-status"><i></i><span>Disponible para oportunidades junior</span></div>
+        </aside>>
       </div>
     </section>
 
@@ -326,10 +413,11 @@
       <div class="container">
         <header class="section-head reveal"><span class="section-index mono">03</span><h2 class="section-title">Proyecto destacado</h2></header>
         <article class="project-card reveal">
-          <div class="project-preview">
-            <div class="preview-window"><div class="preview-chart"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <button class="project-preview project-preview-button" id="openProjectPreview" type="button" aria-label="Previsualizar Portfolio de Inversiones">
+            <img src="portfolio-preview.svg" alt="Vista previa del Portfolio de Inversiones">
+            <span class="preview-overlay"><span>⌕</span> Previsualizar proyecto</span>
             <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">Simulación</span><span class="tag">Carteras</span></div>
-          </div>
+          </button>
           <div class="project-body">
             <div class="project-eyebrow">Challenge Técnico · AranguriApps</div>
             <h3 class="project-title">Portfolio de Inversiones</h3>
@@ -352,11 +440,23 @@
       <div class="container">
         <header class="section-head reveal"><span class="section-index mono">04</span><h2 class="section-title">Habilidades</h2></header>
         <div class="skills-grid">
-          <article class="skill-card reveal" data-level="70"><div class="skill-top"><h3>JavaScript</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:70%"></span></div></article>
+          <article class="skill-card reveal skill-animated" data-level="70">
+            <div class="skill-top"><h3>JavaScript</h3><span class="skill-level">Intermedio</span></div>
+            <div class="skill-bar"><span style="--w:70%"></span></div>
+            <div class="skill-tooltip"><span class="skill-tooltip-icon">JS</span><span>Interactividad y lógica de interfaces</span></div>
+          </article>
           <article class="skill-card reveal" data-level="85"><div class="skill-top"><h3>HTML</h3><span class="skill-level">Sólido</span></div><div class="skill-bar"><span style="--w:85%"></span></div></article>
-          <article class="skill-card reveal" data-level="80"><div class="skill-top"><h3>Git</h3><span class="skill-level">Completado</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
+          <article class="skill-card reveal skill-animated" data-level="80">
+            <div class="skill-top"><h3>Git</h3><span class="skill-level">Completado</span></div>
+            <div class="skill-bar"><span style="--w:80%"></span></div>
+            <div class="skill-tooltip"><span class="skill-tooltip-icon">↗</span><span>Control de versiones y trabajo colaborativo</span></div>
+          </article>
           <article class="skill-card reveal" data-level="75"><div class="skill-top"><h3>PLC</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:75%"></span></div></article>
-          <article class="skill-card reveal" data-level="70"><div class="skill-top"><h3>Excel</h3><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:70%"></span></div></article>
+          <article class="skill-card reveal skill-animated" data-level="55">
+            <div class="skill-top"><h3>CSS</h3><span class="skill-level">En curso</span></div>
+            <div class="skill-bar"><span style="--w:55%"></span></div>
+            <div class="skill-tooltip"><span class="skill-tooltip-icon">#</span><span>Maquetación, estilos y diseño responsive</span></div>
+          </article>
           <article class="skill-card reveal" data-level="80"><div class="skill-top"><h3>Inglés</h3><span class="skill-level">Upper-Intermediate</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
         </div>
       </div>
@@ -431,6 +531,16 @@
     </div>
   </footer>
 
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-label="Vista previa del Portfolio de Inversiones">
+    <div class="modal-panel project-modal-panel">
+      <button class="modal-close" id="closeProjectPreview" type="button" aria-label="Cerrar vista previa">×</button>
+      <img src="portfolio-preview.svg" alt="Vista previa ampliada del Portfolio de Inversiones">
+      <div class="preview-modal-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener" href="https://portfolio-inversiones-challenge-baon7robj-felipe-portfolio.vercel.app/">Abrir proyecto ↗</a>
+      </div>
+    </div>
+  </div>
+
   <div class="modal" id="certificateModal" role="dialog" aria-modal="true" aria-label="Certificado de Git">
     <div class="modal-panel">
       <button class="modal-close" id="closeCertificate" type="button" aria-label="Cerrar certificado">×</button>
@@ -492,7 +602,13 @@
         const open = navLinks.classList.toggle('open');
         navToggle.setAttribute('aria-expanded', open);
       });
-      anchors.forEach(a => a.addEventListener('click', () => {
+      anchors.forEach(a => a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null, '', a.getAttribute('href'));
+        }
         navLinks.classList.remove('open');
         navToggle.setAttribute('aria-expanded','false');
       }));
@@ -507,17 +623,50 @@
       }, {rootMargin:'0px 0px -10% 0px',threshold:.12});
       $$('.reveal').forEach(el => reveal.observe(el));
 
-      // Aceternity-inspired typewriter: visible, but not painfully slow.
-      const word = 'Web Junior';
+      // Aceternity-inspired typewriter: the complete "Desarrollador Web Junior".
+      const phrase = 'Desarrollador Web Junior';
       const typewriter = $('#typewriter');
       let i = 0;
       const type = () => {
-        if (i < word.length) {
-          typewriter.textContent += word[i++];
-          setTimeout(type, 85);
+        if (i < phrase.length) {
+          typewriter.textContent += phrase[i++];
+          setTimeout(type, 82);
         }
       };
       setTimeout(type, 420);
+
+      // Distinct description animation: words appear with a soft rise + blur.
+      const description = $('#heroDescription');
+      const descriptionText = description.getAttribute('aria-label');
+      descriptionText.split(' ').forEach((word, index) => {
+        const span = document.createElement('span');
+        span.className = 'desc-word';
+        span.textContent = word;
+        span.style.animationDelay = (index * 48) + 'ms';
+        description.appendChild(span);
+      });
+      const descriptionObserver = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          description.classList.add('in-view');
+          descriptionObserver.disconnect();
+        }
+      }, {threshold:.25});
+      descriptionObserver.observe(description);
+
+      // Project preview modal.
+      const projectModal = $('#projectModal');
+      const openProjectPreview = $('#openProjectPreview');
+      const closeProjectPreview = $('#closeProjectPreview');
+      const closeProjectModal = () => {
+        projectModal.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+      openProjectPreview.addEventListener('click', () => {
+        projectModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+      closeProjectPreview.addEventListener('click', closeProjectModal);
+      projectModal.addEventListener('click', e => { if (e.target === projectModal) closeProjectModal(); });
 
       // Certificate modal.
       const modal = $('#certificateModal');
@@ -533,7 +682,9 @@
       });
       closeCert.addEventListener('click', closeModal);
       modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-      addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+      addEventListener('keydown', e => {
+        if (e.key === 'Escape') { closeModal(); closeProjectModal(); }
+      });
 
       $('#year').textContent = new Date().getFullYear();
     })();
