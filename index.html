@@ -104,7 +104,7 @@
     .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:18px;color:var(--dim);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
     .eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(34,197,94,.12)}
     .hero-title{font-size:clamp(3rem,7vw,6.2rem);font-weight:700;max-width:780px}
-    .typewriter{display:inline-block;color:var(--accent2);min-width:8ch}
+    .typewriter{display:inline-block;color:var(--accent2)}
     .cursor{display:inline-block;width:2px;height:.86em;margin-left:5px;background:currentColor;vertical-align:-.06em;animation:blink .8s steps(1) infinite}
     @keyframes blink{50%{opacity:0}}
     .hero-sub{max-width:650px;margin-top:25px;color:var(--muted);font-size:1.05rem;overflow:hidden}
@@ -182,11 +182,30 @@
     .card p,.service-card p{color:var(--muted);font-size:.92rem;line-height:1.75}
     .service-card{padding:25px;min-height:190px;transition:.35s var(--ease)}
     .service-card:hover,.skill-card:hover,.timeline-card:hover{transform:translateY(-5px);border-color:rgba(59,130,246,.35)}
-    .service-icon,.contact-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:var(--soft);color:var(--accent2);margin-bottom:20px}
+    .service-icon,.contact-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:var(--soft);color:var(--accent2);margin-bottom:20px;transition:.35s var(--ease)}
     .service-icon svg,.contact-icon svg{width:21px;height:21px}
+    /* Interface-crafts-style card: spotlight glow that follows the cursor (inspired by ui.aceternity.com/labs/interface-crafts-cards, adapted) */
+    .service-card{position:relative;overflow:hidden}
+    .service-card:before{
+      content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:0;
+      background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(59,130,246,.18),transparent 65%);
+      opacity:0;transition:opacity .35s var(--ease)
+    }
+    .service-card:hover:before{opacity:1}
+    .service-card:hover{border-color:rgba(59,130,246,.4)}
+    .service-card:hover .service-icon{transform:scale(1.12) rotate(-6deg);background:rgba(59,130,246,.22)}
+    .service-card>*{position:relative;z-index:1}
 
     /* ===== Featured project ===== */
-    .project-card{display:grid;grid-template-columns:.9fr 1.1fr;overflow:hidden}
+    .tilt-wrap{perspective:1700px}
+    .project-card{display:grid;grid-template-columns:.9fr 1.1fr;overflow:hidden;position:relative;transition:transform .35s var(--ease);transform-style:preserve-3d;will-change:transform}
+    .project-card:after{
+      content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;
+      background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.12),transparent 62%);
+      opacity:0;transition:opacity .35s var(--ease)
+    }
+    .project-card:hover:after{opacity:1}
+    .project-card .project-preview,.project-card .project-body{transition:transform .35s var(--ease)}
     .project-preview{min-height:360px;padding:24px;background:linear-gradient(145deg,var(--soft),transparent 65%),var(--card2);border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between}
     .preview-window{height:100%;min-height:250px;border:1px solid var(--border);border-radius:15px;background:rgba(0,0,0,.08);position:relative;overflow:hidden;cursor:zoom-in}
     .preview-window img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s var(--ease)}
@@ -275,7 +294,12 @@
     .modal-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:20px;z-index:2}
 
     .site-footer{padding:30px 0;border-top:1px solid var(--border);background:var(--bg2)}
-    .footer-wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--dim);font-size:.75rem}
+    .footer-wrap{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;color:var(--dim);font-size:.75rem}
+    .footer-contact{display:inline-flex;align-items:center;gap:9px;color:var(--text);font-size:.8rem;font-weight:550;transition:.3s var(--ease)}
+    .footer-contact:hover{color:var(--accent2)}
+    .footer-mark{width:26px;height:26px;border-radius:50%;overflow:hidden;flex:none;border:1.5px solid rgba(59,130,246,.4);transition:.3s var(--ease)}
+    .footer-mark img{width:100%;height:100%;object-fit:cover;display:block}
+    .footer-contact:hover .footer-mark{transform:rotate(-8deg) scale(1.08);border-color:rgba(59,130,246,.7)}
 
     @media (max-width:900px){
       .hero-grid,.project-card,.contact-wrap{grid-template-columns:1fr}
@@ -320,7 +344,7 @@
       <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
         <a class="nav-link active" href="#about">Sobre mí</a>
         <a class="nav-link" href="#services">Cómo puedo ayudarte</a>
-        <a class="nav-link" href="#project">Proyecto</a>
+        <a class="nav-link" href="#project">Proyectos</a>
         <a class="nav-link" href="#skills">Habilidades</a>
         <a class="nav-link" href="#education">Formación</a>
         <a class="nav-link nav-cta" href="#contact">Contacto</a>
@@ -343,7 +367,7 @@
           <h1 class="hero-title"><span id="typewriter-plain"></span><span class="typewriter" id="typewriter"></span><span class="cursor"></span></h1>
           <p class="hero-sub" id="heroSub"><span class="hero-sub-inner">Estudiante de la Tecnicatura en Desarrollo Web (UNLaM) con formación previa en Ingeniería Electrónica. Construyo soluciones web limpias, analíticas y orientadas a resolver problemas concretos. Estoy interesado en sumar experiencia ayudando a profesionales y pequeñas empresas a tener presencia digital.</span></p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#project">Ver proyecto destacado ↗</a>
+            <a class="btn btn-primary" href="#project">Ver proyectos ↗</a>
             <a class="btn btn-ghost" href="#contact">Contactarme</a>
           </div>
         </div>
@@ -399,7 +423,8 @@
 
     <section class="section" id="project">
       <div class="container">
-        <header class="section-head reveal"><span class="section-index mono">03</span><h2 class="section-title">Proyecto destacado</h2></header>
+        <header class="section-head reveal"><span class="section-index mono">03</span><h2 class="section-title">Proyectos</h2></header>
+        <div class="tilt-wrap">
         <article class="project-card reveal">
           <div class="project-preview">
             <button class="preview-window" type="button" data-img="portfolio-inversiones.png" data-alt="Captura de pantalla del Portfolio de Inversiones" aria-label="Ver imagen del proyecto en grande" style="border:1px solid var(--border);width:100%;text-align:left">
@@ -423,6 +448,7 @@
             </div>
           </div>
         </article>
+        </div>
       </div>
     </section>
 
@@ -431,7 +457,7 @@
         <header class="section-head reveal"><span class="section-index mono">04</span><h2 class="section-title">Habilidades</h2></header>
         <div class="skills-grid">
           <article class="skill-card skill-glow reveal" data-level="70"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-js.png" alt="" loading="lazy"><h3>JavaScript</h3></div><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:70%"></span></div></article>
-          <article class="skill-card reveal" data-level="85"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-html.png" alt="" loading="lazy"><h3>HTML</h3></div><span class="skill-level">Sólido</span></div><div class="skill-bar"><span style="--w:85%"></span></div></article>
+          <article class="skill-card reveal" data-level="85"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-html.png" alt="" loading="lazy"><h3>HTML</h3></div><span class="skill-level">En curso</span></div><div class="skill-bar"><span style="--w:85%"></span></div></article>
           <article class="skill-card skill-glow reveal" data-level="80"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-git.png" alt="" loading="lazy"><h3>Git</h3></div><span class="skill-level">Completado</span></div><div class="skill-bar"><span style="--w:80%"></span></div></article>
           <article class="skill-card reveal" data-level="75"><div class="skill-top"><div class="skill-name"><h3>PLC</h3></div><span class="skill-level">Intermedio</span></div><div class="skill-bar"><span style="--w:75%"></span></div></article>
           <article class="skill-card skill-glow reveal" data-level="40"><div class="skill-top"><div class="skill-name"><img class="skill-icon" src="icon-css.png" alt="" loading="lazy"><h3>CSS</h3></div><span class="skill-level">En curso</span></div><div class="skill-bar"><span style="--w:40%"></span></div></article>
@@ -463,7 +489,10 @@
           </article>
           <article class="timeline-item reveal">
             <div class="timeline-dot"></div>
-            <div class="timeline-card"><h3>E-Commerce</h3><p class="timeline-place">Coderhouse</p></div>
+            <div class="timeline-card">
+              <h3>E-Commerce</h3><p class="timeline-place">Coderhouse</p>
+              <button class="certificate-tab" type="button" data-img="certificado-ecommerce.png" data-alt="Certificado de aprobación del curso E-commerce de Coderhouse">▣ Ver certificado</button>
+            </div>
           </article>
           <article class="timeline-item reveal">
             <div class="timeline-dot"></div>
@@ -505,6 +534,10 @@
   <footer class="site-footer">
     <div class="container footer-wrap">
       <span>Felipe Lavin Piriz · Desarrollador Web Junior</span>
+      <a class="footer-contact" href="#contact">
+        <span class="footer-mark"><img src="logo-dev.png" alt=""></span>
+        Contacto
+      </a>
       <span>Haedo, Buenos Aires, Argentina · © <span id="year"></span></span>
     </div>
   </footer>
@@ -629,6 +662,34 @@
       addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
       $('#year').textContent = new Date().getFullYear();
+
+      // Spotlight glow that follows the cursor (services cards, inspired by Aceternity's Interface Crafts cards).
+      $$('.service-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+          card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+        });
+      });
+
+      // 3D tilt + glare on pointer move (project cards, inspired by Aceternity's 3D Card Effect).
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceMotion) $$('.project-card').forEach(card => {
+        const maxTilt = 8;
+        const onMove = e => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width;
+          const y = (e.clientY - rect.top) / rect.height;
+          const rotateY = (x - .5) * maxTilt * 2;
+          const rotateX = (.5 - y) * maxTilt * 2;
+          card.style.transform = `perspective(1700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.012,1.012,1.012)`;
+          card.style.setProperty('--mx', x * 100 + '%');
+          card.style.setProperty('--my', y * 100 + '%');
+        };
+        const reset = () => { card.style.transform = 'perspective(1700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)'; };
+        card.addEventListener('mousemove', onMove);
+        card.addEventListener('mouseleave', reset);
+      });
     })();
   </script>
 </body>
