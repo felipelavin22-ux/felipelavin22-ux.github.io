@@ -59,7 +59,7 @@
       transition:width .5s var(--ease),height .5s var(--ease),border-radius .5s var(--ease),padding .5s var(--ease);
       pointer-events:auto
     }
-    .site-header.scrolled .nav-wrap{width:min(820px,calc(100% - 40px));height:54px;border-radius:999px;padding-left:12px}
+    .site-header.scrolled .nav-wrap{width:min(880px,calc(100% - 40px));height:54px;border-radius:999px;padding-left:12px}
     .brand{display:flex;align-items:center;gap:11px;font-weight:650;white-space:nowrap;cursor:pointer}
     .brand-mark{
       width:50px;height:50px;border-radius:50%;overflow:hidden;flex:none;position:relative;
@@ -71,8 +71,8 @@
     .brand:hover .brand-mark img{transform:scale(1.12)}
     .site-header.scrolled .brand-mark{width:42px;height:42px}
     .brand-name{font-size:.92rem}
-    .nav-links{display:flex;align-items:center;gap:2px}
-    .nav-link{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:.82rem;transition:.25s}
+    .nav-links{display:flex;align-items:center;gap:1px;flex-wrap:nowrap}
+    .nav-link{padding:8px 11px;border-radius:10px;color:var(--muted);font-size:.8rem;white-space:nowrap;transition:.25s}
     .nav-link:hover,.nav-link.active{color:var(--text);background:var(--soft)}
     .nav-cta{color:var(--text);border:1px solid rgba(59,130,246,.28)}
     .nav-toggle{display:none;width:40px;height:40px;border:1px solid var(--border);background:transparent;border-radius:10px;color:var(--text)}
@@ -169,6 +169,10 @@
     .section-lead{margin-top:14px;color:var(--muted);max-width:650px}
     .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
     .reveal.in-view{opacity:1;transform:none}
+    .section-title-row{display:flex;align-items:center;gap:14px;margin-top:8px}
+    .section-title-row .section-title{margin-top:0}
+    .section-mark{width:36px;height:36px;border-radius:50%;overflow:hidden;flex:none;border:1.5px solid rgba(59,130,246,.4);box-shadow:0 6px 16px rgba(59,130,246,.18);transition:.3s var(--ease)}
+    .section-mark img{width:100%;height:100%;object-fit:cover;display:block}
     .about-grid,.services-grid,.skills-grid,.contact-grid{display:grid;gap:16px}
     .about-grid{grid-template-columns:repeat(2,1fr)}
     .services-grid{grid-template-columns:repeat(3,1fr)}
@@ -294,12 +298,7 @@
     .modal-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:20px;z-index:2}
 
     .site-footer{padding:30px 0;border-top:1px solid var(--border);background:var(--bg2)}
-    .footer-wrap{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;color:var(--dim);font-size:.75rem}
-    .footer-contact{display:inline-flex;align-items:center;gap:9px;color:var(--text);font-size:.8rem;font-weight:550;transition:.3s var(--ease)}
-    .footer-contact:hover{color:var(--accent2)}
-    .footer-mark{width:26px;height:26px;border-radius:50%;overflow:hidden;flex:none;border:1.5px solid rgba(59,130,246,.4);transition:.3s var(--ease)}
-    .footer-mark img{width:100%;height:100%;object-fit:cover;display:block}
-    .footer-contact:hover .footer-mark{transform:rotate(-8deg) scale(1.08);border-color:rgba(59,130,246,.7)}
+    .footer-wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--dim);font-size:.75rem}
 
     @media (max-width:900px){
       .hero-grid,.project-card,.contact-wrap{grid-template-columns:1fr}
@@ -510,10 +509,10 @@
       <div class="container">
         <div class="contact-wrap">
           <div class="contact-copy reveal">
-            <header class="section-head" style="margin-bottom:0"><span class="section-index mono">06</span><h2 class="section-title">Contacto</h2><p class="section-lead">Disponible para oportunidades como Desarrollador Web Junior y para proyectos web freelance. Escribime y lo conversamos.</p></header>
+            <header class="section-head" style="margin-bottom:0"><span class="section-index mono">06</span><div class="section-title-row"><h2 class="section-title">Contacto</h2><span class="section-mark"><img src="logo-dev.png" alt="Logo de Felipe Lavin Piriz"></span></div><p class="section-lead">Disponible para oportunidades como Desarrollador Web Junior y para proyectos web freelance. Escribime y lo conversamos.</p></header>
           </div>
           <div class="contact-links reveal" aria-label="Enlaces de contacto">
-            <a class="contact-link" href="mailto:felipe.lavin2208@gmail.com" aria-label="Gmail">
+            <a class="contact-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=felipe.lavin2208@gmail.com" target="_blank" rel="noopener" aria-label="Gmail">
               <span class="tooltip">Gmail</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             </a>
@@ -534,10 +533,6 @@
   <footer class="site-footer">
     <div class="container footer-wrap">
       <span>Felipe Lavin Piriz · Desarrollador Web Junior</span>
-      <a class="footer-contact" href="#contact">
-        <span class="footer-mark"><img src="logo-dev.png" alt=""></span>
-        Contacto
-      </a>
       <span>Haedo, Buenos Aires, Argentina · © <span id="year"></span></span>
     </div>
   </footer>
