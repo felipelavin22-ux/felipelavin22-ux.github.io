@@ -33,19 +33,22 @@
       --shadow:0 25px 70px rgba(15,23,42,.10);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    html{scroll-behavior:smooth;scroll-padding-top:90px;width:100%;max-width:100%;overflow-x:hidden;background:var(--bg)}
     body{
-      margin:0;min-width:320px;min-height:100vh;background:var(--bg);color:var(--text);
+      margin:0;width:100%;max-width:100%;min-width:0;min-height:100vh;background:var(--bg);color:var(--text);
       font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;
       overflow-x:hidden;transition:background .45s ease,color .45s ease
     }
+    @supports (overflow:clip){html,body{overflow-x:clip}}
+    main,section,header,footer{max-width:100%}
     body:before{
       content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
       background:radial-gradient(60% 45% at 85% 0%,rgba(59,130,246,.12),transparent 65%),
                  radial-gradient(45% 35% at 0% 100%,rgba(59,130,246,.06),transparent 65%)
     }
     a{color:inherit;text-decoration:none} button{font:inherit}
-    .container{width:min(1120px,calc(100% - 40px));margin:auto}
+    .container{width:min(1120px,calc(100% - 40px));max-width:100%;margin-inline:auto;min-width:0}
+    .hero-grid>*,.about-grid>*,.services-grid>*,.skills-grid>*,.contact-grid>*,.project-card>*{min-width:0}
     h1,h2,h3,p{margin:0} h1,h2,h3{line-height:1.15;letter-spacing:-.025em}
     .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 
@@ -122,7 +125,7 @@
     .btn-primary{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 12px 30px rgba(37,99,235,.25)}
     .btn-ghost{background:var(--card)}
     /* Hero card: animated rotating-gradient border + shine sweep on hover (inspired by uiverse.io/Javierrocadev/chatty-stingray-29, adapted; CV button omitted) */
-    .hero-card-wrap{position:relative;border-radius:26px;padding:2px;isolation:isolate}
+    .hero-card-wrap{position:relative;border-radius:26px;padding:2px;isolation:isolate;overflow:hidden;contain:paint}
     .hero-card-wrap:before{
       content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;
       background:conic-gradient(from 0deg,var(--accent),transparent 30%,var(--accent2),transparent 70%,var(--accent));
@@ -199,6 +202,15 @@
     .service-card:hover{border-color:rgba(59,130,246,.4)}
     .service-card:hover .service-icon{transform:scale(1.12) rotate(-6deg);background:rgba(59,130,246,.22)}
     .service-card>*{position:relative;z-index:1}
+    .service-card-link{display:flex;flex-direction:column}
+    .service-card-link p{flex:1}
+    .service-link{
+      align-self:flex-start;display:inline-flex;align-items:center;gap:7px;margin-top:16px;
+      padding:8px 11px;border:1px solid rgba(59,130,246,.30);border-radius:9px;
+      background:var(--soft);color:var(--accent2);font-size:.76rem;font-weight:600;
+      line-height:1;transition:transform .25s var(--ease),background .25s var(--ease),border-color .25s var(--ease)
+    }
+    .service-link:hover{transform:translateY(-2px);background:rgba(59,130,246,.18);border-color:rgba(59,130,246,.5)}
 
     /* ===== Featured project ===== */
     .tilt-wrap{perspective:1700px}
@@ -308,23 +320,34 @@
       .contact-links{justify-content:flex-start}
     }
     @media (max-width:720px){
-      .container{width:min(100% - 28px,1120px)}
-      .site-header{top:8px}
-      .nav-wrap{width:calc(100% - 20px)!important;height:58px!important;border-radius:16px!important;padding:0 9px 0 12px!important}
+      html,body{width:100%;max-width:100%;min-width:0}
+      .container{width:calc(100% - 28px);max-width:calc(100% - 28px);margin-left:auto;margin-right:auto}
+      .section{padding:78px 0}
+      .site-header{top:8px;left:0;right:0;width:100%}
+      .nav-wrap{width:calc(100% - 20px)!important;max-width:calc(100% - 20px);height:58px!important;border-radius:16px!important;padding:0 9px 0 12px!important;margin-inline:auto}
       .brand-name{display:none}
       .nav-links{
-        display:none;position:absolute;top:65px;left:0;right:0;padding:10px;flex-direction:column;
+        display:none;position:absolute;top:65px;left:0;right:0;width:100%;max-width:100%;padding:10px;flex-direction:column;
         background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)
       }
       .nav-links.open{display:flex}
       .nav-link{width:100%;padding:11px}
-      .nav-toggle{display:block}
-      .services-grid,.skills-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
-      .hero-title{font-size:clamp(2.7rem,13vw,4.3rem)}
-      .project-preview{min-height:300px;border-right:0;border-bottom:1px solid var(--border)}
-      .project-body{padding:25px}
+      .nav-toggle{display:block;flex:none}
+      .hero{padding:112px 0 70px;overflow:hidden}
+      .hero-grid{width:100%;max-width:100%;gap:38px}
+      .hero-card-wrap,.hero-card,.card,.service-card,.skill-card,.project-card,.timeline-card{max-width:100%}
+      .services-grid,.skills-grid,.about-grid,.contact-grid{grid-template-columns:minmax(0,1fr)}
+      .hero-title{font-size:clamp(2.55rem,12vw,4.1rem);overflow-wrap:anywhere}
+      .hero-sub,.section-lead,.card p,.service-card p,.project-desc,.timeline-place{overflow-wrap:anywhere}
+      .project-card{transform:none!important}
+      .project-preview{min-height:280px;border-right:0;border-bottom:1px solid var(--border)}
+      .project-body{padding:22px}
+      .timeline{padding-left:36px}
+      .timeline-dot{left:-34px}
       .contact-wrap{gap:28px}
-      .theme-switch{right:14px;bottom:14px}
+      .contact-links{flex-wrap:wrap}
+      .theme-switch{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom))}
+      .service-link{margin-top:14px}
     }
     @media (prefers-reduced-motion:reduce){
       *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -411,7 +434,14 @@
         <header class="section-head reveal"><span class="section-index mono">02</span><h2 class="section-title">Cómo puedo ayudarte</h2><p class="section-lead">Desarrollo soluciones web para negocios que necesitan ordenar procesos, administrar información o integrar herramientas de IA en sus productos.</p></header>
         <div class="services-grid">
           <article class="service-card reveal"><div class="service-icon">☰</div><h3>Sitios web institucionales</h3><p>Sitios profesionales para mostrar servicios, contacto y ubicación, con un diseño claro y responsive.</p></article>
-          <article class="service-card reveal"><div class="service-icon">▦</div><h3>Paneles administrativos</h3><p>Interfaces para cargar, editar, consultar y organizar datos de forma simple y ordenada.</p></article>
+          <article class="service-card service-card-link reveal">
+            <div class="service-icon" aria-hidden="true">⌁</div>
+            <h3>Soluciones NFC personalizadas</h3>
+            <p>Diseño y personalización de tarjetas y stickers NFC que conectan un objeto físico con perfiles, redes, contacto, Wi‑Fi, menús o enlaces digitales.</p>
+            <a class="service-link" href="https://proyecto-nfc-five.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Ver proyecto de soluciones NFC">
+              Ver experiencia NFC <span aria-hidden="true">↗</span>
+            </a>
+          </article>
           <article class="service-card reveal"><div class="service-icon">✉</div><h3>Landing pages comerciales</h3><p>Páginas enfocadas en presentar un servicio, captar consultas y conectar con WhatsApp o formularios.</p></article>
           <article class="service-card reveal"><div class="service-icon">✦</div><h3>Integraciones con IA</h3><p>Integración de modelos de IA en productos web reales, con foco en casos de uso concretos y no aislados.</p></article>
           <article class="service-card reveal"><div class="service-icon">⌘</div><h3>Automatización de tareas</h3><p>Conexión entre formularios, emails, APIs y bases de datos para reducir tareas manuales y centralizar información.</p></article>
@@ -669,7 +699,9 @@
 
       // 3D tilt + glare on pointer move (project cards, inspired by Aceternity's 3D Card Effect).
       const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reduceMotion) $$('.project-card').forEach(card => {
+      const coarsePointer = matchMedia('(pointer: coarse)').matches;
+      const mobileViewport = matchMedia('(max-width: 900px)').matches;
+      if (!reduceMotion && !coarsePointer && !mobileViewport) $$('.project-card').forEach(card => {
         const maxTilt = 8;
         const onMove = e => {
           const rect = card.getBoundingClientRect();
