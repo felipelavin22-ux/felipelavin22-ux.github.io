@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://felipelavin22-ux.github.io/sitemap.xml
