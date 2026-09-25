@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -225,7 +225,18 @@
 
     /* ===== Featured project ===== */
     .tilt-wrap{perspective:1700px}
-    .tilt-wrap .project-card + .project-card{margin-top:24px}
+    .projects-slider-wrap{position:relative}
+    .projects-slider{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .projects-slider::-webkit-scrollbar{display:none}
+    .projects-slider .project-card{flex:0 0 min(880px,88vw);scroll-snap-align:center}
+    .slider-nav{display:flex;align-items:center;gap:14px;margin-top:20px}
+    .slider-arrow{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);display:grid;place-items:center;cursor:pointer;transition:.25s}
+    .slider-arrow:hover{background:var(--soft);border-color:var(--accent2)}
+    .slider-arrow svg{width:18px;height:18px}
+    .slider-dots{display:flex;gap:8px}
+    .slider-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;cursor:pointer;padding:0;transition:.25s}
+    .slider-dot.active{background:var(--accent2);width:22px;border-radius:5px}
+    @media (max-width:900px){.projects-slider .project-card{flex-basis:92vw}}
     .project-card{display:grid;grid-template-columns:.9fr 1.1fr;overflow:hidden;position:relative;transition:transform .35s var(--ease);transform-style:preserve-3d;will-change:transform}
     .project-card:after{
       content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;
@@ -465,7 +476,8 @@
     <section class="section" id="project">
       <div class="container">
         <header class="section-head reveal"><span class="section-index mono">02</span><h2 class="section-title">Proyectos</h2></header>
-        <div class="tilt-wrap">
+        <div class="projects-slider-wrap reveal">
+        <div class="tilt-wrap projects-slider" id="projectsSlider">
         <article class="project-card reveal">
           <div class="project-preview">
             <button class="preview-window" type="button" data-img="portfolio-inversiones.png" data-alt="Captura de pantalla del Portfolio de Inversiones" aria-label="Ver imagen del proyecto en grande" style="border:1px solid var(--border);width:100%;text-align:left">
@@ -492,8 +504,8 @@
 
         <article class="project-card reveal">
           <div class="project-preview">
-            <button class="preview-window" type="button" data-img="distrito-fitness-preview.png" data-alt="Interior del gimnasio Distrito Fitness Center" aria-label="Ver imagen del proyecto en grande" style="border:1px solid var(--border);width:100%;text-align:left">
-              <img src="distrito-fitness-preview.png" alt="Interior del gimnasio Distrito Fitness Center">
+            <button class="preview-window" type="button" data-img="distrito-fitness-preview.png" data-alt="Captura de pantalla del sitio web de Distrito Fitness Center" aria-label="Ver imagen del proyecto en grande" style="border:1px solid var(--border);width:100%;text-align:left">
+              <img src="distrito-fitness-preview.png" alt="Captura de pantalla del sitio web de Distrito Fitness Center">
               <span class="preview-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>Ver imagen completa</span>
             </button>
             <div class="project-tags"><span class="tag">Tailwind CSS</span><span class="tag">JavaScript</span><span class="tag">Landing Page</span></div>
@@ -514,6 +526,12 @@
             </div>
           </div>
         </article>
+        </div>
+        <div class="slider-nav">
+          <button class="slider-arrow" type="button" id="sliderPrev" aria-label="Proyecto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="slider-dots" id="sliderDots"></div>
+          <button class="slider-arrow" type="button" id="sliderNext" aria-label="Proyecto siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
         </div>
       </div>
     </section>
@@ -776,6 +794,33 @@
         card.addEventListener('mousemove', onMove);
         card.addEventListener('mouseleave', reset);
       });
+
+      // Projects slider: dots + arrow navigation, synced to scroll position.
+      const slider = document.getElementById('projectsSlider');
+      if (slider) {
+        const slides = $$('.project-card', slider);
+        const dotsWrap = document.getElementById('sliderDots');
+        slides.forEach((_, i) => {
+          const dot = document.createElement('button');
+          dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', `Ir al proyecto ${i + 1}`);
+          dot.addEventListener('click', () => slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }));
+          dotsWrap.appendChild(dot);
+        });
+        const dots = $$('.slider-dot', dotsWrap);
+        const setActive = () => {
+          const center = slider.scrollLeft + slider.clientWidth / 2;
+          let closest = 0, min = Infinity;
+          slides.forEach((s, i) => {
+            const d = Math.abs((s.offsetLeft + s.clientWidth / 2) - center);
+            if (d < min) { min = d; closest = i; }
+          });
+          dots.forEach((d, i) => d.classList.toggle('active', i === closest));
+        };
+        slider.addEventListener('scroll', () => requestAnimationFrame(setActive), { passive: true });
+        document.getElementById('sliderPrev').addEventListener('click', () => slider.scrollBy({ left: -slider.clientWidth * 0.9, behavior: 'smooth' }));
+        document.getElementById('sliderNext').addEventListener('click', () => slider.scrollBy({ left: slider.clientWidth * 0.9, behavior: 'smooth' }));
+      }
     })();
   </script>
 </body>
