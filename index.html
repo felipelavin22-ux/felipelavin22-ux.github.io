@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Desarrollador web freelance en Buenos Aires. Sitios institucionales, landing pages e integraciones con IA, con mirada analítica de ingeniería.">
+  <meta name="description" content="Desarrollador web freelance. Sitios institucionales, landing pages e integraciones con IA, con mirada analítica de ingeniería.">
   <title>Felipe Lavin Piriz — Desarrollador Web Freelance</title>
   <link rel="canonical" href="https://felipelavin22-ux.github.io/">
   <meta property="og:type" content="website">
@@ -225,6 +225,7 @@
 
     /* ===== Featured project ===== */
     .tilt-wrap{perspective:1700px}
+    .tilt-wrap .project-card + .project-card{margin-top:24px}
     .project-card{display:grid;grid-template-columns:.9fr 1.1fr;overflow:hidden;position:relative;transition:transform .35s var(--ease);transform-style:preserve-3d;will-change:transform}
     .project-card:after{
       content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;
@@ -406,7 +407,7 @@
     <section class="hero" id="hero">
       <div class="container hero-grid">
         <div class="reveal">
-          <div class="eyebrow">Haedo, Buenos Aires, Argentina</div>
+          <div class="eyebrow">Disponible para nuevos proyectos</div>
           <h1 class="hero-title"><span id="typewriter-plain"></span><span class="typewriter" id="typewriter"></span><span class="cursor"></span></h1>
           <p class="hero-sub" id="heroSub"><span class="hero-sub-inner">Ayudo a profesionales y pequeñas empresas a tener presencia digital: sitios institucionales, landing pages e integraciones con IA. Formación en Ingeniería Electrónica + Tecnicatura en Desarrollo Web (UNLaM): una mirada analítica aplicada a resolver problemas web concretos.</span></p>
           <div class="hero-actions">
@@ -423,8 +424,8 @@
               <span class="meta-text"><span class="meta-label">Rol</span><span class="meta-value">Desarrollador Web Junior</span></span>
             </li>
             <li>
-              <span class="meta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.1 7-11.5A7 7 0 105 9.5C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>
-              <span class="meta-text"><span class="meta-label">Ubicación</span><span class="meta-value">Haedo, Buenos Aires</span></span>
+              <span class="meta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.2 2"/></svg></span>
+              <span class="meta-text"><span class="meta-label">Disponibilidad</span><span class="meta-value">Freelance · trabajo remoto</span></span>
             </li>
             <li>
               <span class="meta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
@@ -485,6 +486,31 @@
             <div class="hero-actions">
               <a class="btn btn-primary" target="_blank" rel="noopener" href="https://github.com/felipelavin22-ux/portfolio-inversiones-final">Ver código ↗</a>
               <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://portfolio-inversiones-challenge-baon7robj-felipe-portfolio.vercel.app/">Ver app en vivo ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-preview">
+            <button class="preview-window" type="button" data-img="distrito-fitness-preview.png" data-alt="Interior del gimnasio Distrito Fitness Center" aria-label="Ver imagen del proyecto en grande" style="border:1px solid var(--border);width:100%;text-align:left">
+              <img src="distrito-fitness-preview.png" alt="Interior del gimnasio Distrito Fitness Center">
+              <span class="preview-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>Ver imagen completa</span>
+            </button>
+            <div class="project-tags"><span class="tag">Tailwind CSS</span><span class="tag">JavaScript</span><span class="tag">Landing Page</span></div>
+          </div>
+          <div class="project-body">
+            <div class="project-eyebrow">Proyecto freelance</div>
+            <h3 class="project-title">Distrito Fitness Center</h3>
+            <p class="project-desc">Landing page institucional para un gimnasio en Caballito (CABA), con secciones de disciplinas (musculación, CrossFit, Hyrox, calistenia), instalaciones, convenio con WellHub y contacto directo por WhatsApp.</p>
+            <ul class="project-meta">
+              <li><span>Rol</span>Diseño y desarrollo frontend</li>
+              <li><span>Tipo</span>Landing page institucional</li>
+              <li><span>Stack</span>HTML, Tailwind CSS, JavaScript</li>
+              <li><span>Estado</span>Desplegado en producción</li>
+            </ul>
+            <div class="hero-actions">
+              <a class="btn btn-primary" target="_blank" rel="noopener" href="https://github.com/felipelavin22-ux/distrito-fitness-center">Ver código ↗</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://felipelavin22-ux.github.io/distrito-fitness-center/">Ver app en vivo ↗</a>
             </div>
           </div>
         </article>
@@ -593,7 +619,7 @@
   <footer class="site-footer">
     <div class="container footer-wrap">
       <span>Felipe Lavin Piriz · Desarrollador Web Junior</span>
-      <span>Haedo, Buenos Aires, Argentina · © <span id="year"></span></span>
+      <span>© <span id="year"></span> Felipe Lavin Piriz</span>
     </div>
     <div class="container footer-legal">
       Este sitio no utiliza cookies de seguimiento ni scripts de analítica de terceros. Los únicos datos que se comparten son los que envíes voluntariamente a través de los canales de contacto (Gmail, LinkedIn o WhatsApp).
